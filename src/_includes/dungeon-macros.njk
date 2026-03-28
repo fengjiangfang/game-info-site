@@ -98,17 +98,14 @@
 </div>
 {% endmacro %}
 
-{% macro stageRow(num, title, dungeon) %}
-{% set cn = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'] %}
+{% macro stageRow(num, title, dungeon, ext='webp', type='組隊副本') %}
 <li class="timeline-row">
     <div class="timeline-marker"></div>
     <div class="timeline-left-panel">
-        <img id="stage-{{ num }}-img" 
-             src="{{ ('/images/組隊副本/' + dungeon + '/第' + num + '階段.webp') | url }}" 
-             alt="第{{ cn[num] }}階段"
-             class="stage-preview-img"
-             onerror="window.globalImageErrorFallback(this)">
-        <div class="stage-caption" id="stage-{{ num }}-img-caption">第{{ cn[num] }}階段</div>
+        <img src="{{ ('/images/' + type + '/' + dungeon + '/第' + cn[num] + '階段.' + ext) | url }}" id="stage-{{ num }}-img" onerror="window.globalImageErrorFallback(this)">
+        <div class="stage-legend">
+            <span id="stage-{{ num }}-img-caption" class="stage-caption">第{{ cn[num] }}階段</span>
+        </div>
     </div>
     <div class="dungeon-flag-wrapper">
         <div class="dungeon-flag-large">
@@ -124,24 +121,20 @@
 </li>
 {% endmacro %}
 
-{% macro npc(name, src, stage, color) -%}
-<span class="npc-hover" 
-      onmouseover="setHoverImg('{{ ('/images/' + (src.replace('.png', '.webp') if src else '')) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '{{ color }}')" 
-      onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</span>
+{% macro npc(name, img, stage, type='組隊副本') %}
+<strong class="npc-hover" onmouseover="setHoverImg('{{ ('/images/' + type + '/' + img.replace('.png', '.webp').replace('.gif', '.webp')) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '#27ae60')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
 {%- endmacro %}
 
-{% macro mob(name, src, stage) -%}
-<span class="mob-hover" 
-      onmouseover="setHoverImg('{{ ('/images/' + (src.replace('.png', '.webp') if src else '')) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '#c0392b')" 
-      onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</span>
+{% macro mob(name, img, stage, type='組隊副本') %}
+<strong class="mob-hover" onmouseover="setHoverImg('{{ ('/images/' + type + '/' + img.replace('.png', '.webp').replace('.gif', '.webp')) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '#9b59b6')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
 {%- endmacro %}
 
 {% macro item(name) -%}
-<span class="item-text"><img src="{{ ('/images/icon/' + name + '.webp') | url }}" class="text-icon" onerror="window.globalImageErrorFallback(this)">{{ name }}</span>
+<span class="item-text"><img src="{{ ('/images/icon/' + name + '.png') | url }}" class="text-icon">{{ name }}</span>
 {%- endmacro %}
 
 {% macro itemBold(name) -%}
-<span class="item-text-bold"><img src="{{ ('/images/icon/' + name + '.webp') | url }}" class="text-icon" onerror="window.globalImageErrorFallback(this)">{{ name }}</span>
+<span class="item-text-bold"><img src="{{ ('/images/icon/' + name + '.png') | url }}" class="text-icon">{{ name }}</span>
 {%- endmacro %}
 
 {% macro dungeonNav(type, prev, next) %}
