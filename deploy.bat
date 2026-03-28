@@ -1,18 +1,23 @@
 @echo off
-echo 🚀 正在準備將變更上傳至 GitHub...
-cd /d "%~dp0"
+setlocal enabledelayedexpansion
 
-echo 🔍 正在掃描變更...
+echo --------------------------------------------------------
+echo [DEPLOY-TOOL] Starting Manual Build and Push...
+echo --------------------------------------------------------
+
+:: 🛠️ 本地編譯 (加上生產環境路徑前綴)
+echo [1/3] Building site for production...
+call npm run build
+
+:: 📤 加入變更與推送
+echo [2/3] Adding changes to Git...
 git add .
+git commit -m "🚀 Content: Update from manual deploy (%date% %time%)"
 
-echo 📦 正在建立存檔 (Commit)...
-git commit -m "✨ Auto update via deploy tool: %date% %time%"
-
-echo 📤 正在快速推送至 GitHub...
+echo [3/3] Uploading to GitHub...
 git push origin main
 
-echo.
-echo ✅ 全部完成！您的網頁已更新。
-echo 🔗 網址：https://fengjiangfang.github.io/game-info-site/
-echo.
+echo --------------------------------------------------------
+echo ✅ DONE! Your site is live and synced.
+echo --------------------------------------------------------
 pause
