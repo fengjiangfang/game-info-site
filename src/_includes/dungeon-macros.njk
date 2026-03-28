@@ -130,11 +130,11 @@
 {%- endmacro %}
 
 {% macro item(name) -%}
-<span class="item-text"><img src="{{ ('/images/icon/' + name + '.png') | url }}" class="text-icon">{{ name }}</span>
+<span class="item-text"><img src="{{ ('/images/icon/' + name + '.webp') | url }}" class="text-icon" onerror="window.globalImageErrorFallback(this)">{{ name }}</span>
 {%- endmacro %}
 
 {% macro itemBold(name) -%}
-<span class="item-text-bold"><img src="{{ ('/images/icon/' + name + '.png') | url }}" class="text-icon">{{ name }}</span>
+<span class="item-text-bold"><img src="{{ ('/images/icon/' + name + '.webp') | url }}" class="text-icon" onerror="window.globalImageErrorFallback(this)">{{ name }}</span>
 {%- endmacro %}
 
 {% macro dungeonNav(type, prev, next) %}
