@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ site.name }}{% if title %}｜{{ title }}{% endif %}</title>
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/css/dungeons.css">
+    <link rel="stylesheet" href="{{ '/style.css' | url }}">
+    <link rel="stylesheet" href="{{ '/css/dungeons.css' | url }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         window.globalImageErrorFallback = function(img) {
@@ -75,26 +75,26 @@
                         </details>
 
                         <details class="channel-group feature-subgroup" id="subgroup-party" {% if page.url and (page.url == '/組隊副本/' or '/組隊副本/' in page.url) %}open{% endif %}>
-                            <summary class="channel-item sub-channel {% if page.url == '/組隊副本/' %}active{% endif %}" onclick="if(this.parentNode.open){event.preventDefault();} window.location.href='/組隊副本/';" style="cursor: pointer;">
+                            <summary class="channel-item sub-channel {% if page.url == '/組隊副本/' %}active{% endif %}" onclick="if(this.parentNode.open){event.preventDefault();} window.location.href='{{ '/組隊副本/' | url }}';" style="cursor: pointer;">
                                 <span class="channel-name">　★ 組隊副本</span>
                             </summary>
                             <div class="sub-channel-container" style="padding-left: 8px;">
-                                <a href="/組隊副本/第一次同行/" class="channel-item sub-channel {% if page.url == '/組隊副本/第一次同行/' %}active{% endif %}">
+                                <a href="{{ '/組隊副本/第一次同行/' | url }}" class="channel-item sub-channel {% if page.url == '/組隊副本/第一次同行/' %}active{% endif %}">
                                     <span class="channel-name">　　├ 第一次同行</span>
                                 </a>
-                                <a href="/組隊副本/時空的裂縫/" class="channel-item sub-channel {% if page.url == '/組隊副本/時空的裂縫/' %}active{% endif %}">
+                                <a href="{{ '/組隊副本/時空的裂縫/' | url }}" class="channel-item sub-channel {% if page.url == '/組隊副本/時空的裂縫/' %}active{% endif %}">
                                     <span class="channel-name">　　├ 時空的裂縫</span>
                                 </a>
-                                <a href="/組隊副本/毒霧森林/" class="channel-item sub-channel {% if page.url == '/組隊副本/毒霧森林/' %}active{% endif %}">
+                                <a href="{{ '/組隊副本/毒霧森林/' | url }}" class="channel-item sub-channel {% if page.url == '/組隊副本/毒霧森林/' %}active{% endif %}">
                                     <span class="channel-name">　　├ 毒霧森林</span>
                                 </a>
-                                <a href="/組隊副本/女神的痕跡/" class="channel-item sub-channel {% if page.url == '/組隊副本/女神的痕跡/' %}active{% endif %}">
+                                <a href="{{ '/組隊副本/女神的痕跡/' | url }}" class="channel-item sub-channel {% if page.url == '/組隊副本/女神的痕跡/' %}active{% endif %}">
                                     <span class="channel-name">　　├ 女神的痕跡</span>
                                 </a>
-                                <a href="/組隊副本/金勾海賊王/" class="channel-item sub-channel {% if page.url == '/組隊副本/金勾海賊王/' %}active{% endif %}">
+                                <a href="{{ '/組隊副本/金勾海賊王/' | url }}" class="channel-item sub-channel {% if page.url == '/組隊副本/金勾海賊王/' %}active{% endif %}">
                                     <span class="channel-name">　　├ 金勾海賊王</span>
                                 </a>
-                                <a href="/組隊副本/羅密歐與茱麗葉/" class="channel-item sub-channel {% if page.url == '/組隊副本/羅密歐與茱麗葉/' %}active{% endif %}">
+                                <a href="{{ '/組隊副本/羅密歐與茱麗葉/' | url }}" class="channel-item sub-channel {% if page.url == '/組隊副本/羅密歐與茱麗葉/' %}active{% endif %}">
                                     <span class="channel-name">　　└ 羅密歐與茱麗葉</span>
                                 </a>
                             </div>
@@ -112,7 +112,7 @@
         </main>
     </div>
 
-    <script src="/js/dungeon-interact.js"></script>
+    <script src="{{ '/js/dungeon-interact.js' | url }}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

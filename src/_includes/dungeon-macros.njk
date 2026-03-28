@@ -111,7 +111,7 @@
 
     <div class="dungeon-info-right">
         <div class="dungeon-npc-img">
-            <img src="/images/組隊副本/{{ dungeon }}/入場NPC.png" onerror="window.globalImageErrorFallback(this)">
+            <img src="{{ ('/images/組隊副本/' + dungeon + '/入場NPC.png') | url }}" onerror="window.globalImageErrorFallback(this)">
         </div>
         <div class="dungeon-stat-grid">
             <div class="stat-box">
@@ -138,7 +138,7 @@
 <li class="timeline-row">
     <div class="timeline-marker"></div>
     <div class="timeline-left-panel">
-        <img src="/images/組隊副本/{{ dungeon }}/第{{ cn[num] }}階段.{{ ext or 'png' }}" id="stage-{{ num }}-img" onerror="window.globalImageErrorFallback(this)">
+        <img src="{{ ('/images/組隊副本/' + dungeon + '/第' + cn[num] + '階段.' + (ext or 'png')) | url }}" id="stage-{{ num }}-img" onerror="window.globalImageErrorFallback(this)">
         <div class="stage-legend">
             <span id="stage-{{ num }}-img-caption" class="stage-caption">第{{ cn[num] }}階段</span>
         </div>
