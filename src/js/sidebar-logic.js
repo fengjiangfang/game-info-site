@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
-    
+
     // 全域圖片預載入與平滑切換
     preloadAllDungeonImages();
 });
@@ -133,10 +133,10 @@ function setHoverImg(url, imgId, name, color) {
 
     // 標記正在懸停，防止被 GIF 暫動邏輯覆蓋
     img.dataset.hovering = 'true';
-    
+
     // 平滑過渡：先半透明
     img.classList.add('loading');
-    
+
     const newImg = new Image();
     newImg.onload = () => {
         img.src = url;
@@ -147,8 +147,8 @@ function setHoverImg(url, imgId, name, color) {
     const caption = document.getElementById(imgId + '-caption');
     if (caption) {
         caption.innerText = name;
-        caption.style.backgroundColor = color;
-        caption.style.color = '#fff';
+        caption.style.color = color; // 只改文字顏色
+        caption.style.fontWeight = '900'; // 加粗文字以突顯
     }
 }
 
@@ -161,13 +161,14 @@ function resetHoverImg(imgId) {
 
     const num = imgId.split('-')[1];
     const originalCaption = `第${cn[num]}階段`;
-    
+
     const caption = document.getElementById(imgId + '-caption');
     if (caption) {
         caption.innerText = originalCaption;
-        caption.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+        caption.style.color = 'color; // 恢復白色文字
+        caption.style.fontWeight = '700';
     }
-    
+
     // 延時一點點恢復，配合 CSS transition
     setTimeout(() => {
         img.classList.remove('loading');
@@ -194,7 +195,7 @@ setInterval(() => {
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                const pixel = ctx.getImageData(canvas.width/2, canvas.height/2, 1, 1).data;
+                const pixel = ctx.getImageData(canvas.width / 2, canvas.height / 2, 1, 1).data;
                 if (pixel[3] > 0) {
                     img.__gifAnimSrc = img.src;
                     img.__gifStaticSrc = canvas.toDataURL('image/png');
