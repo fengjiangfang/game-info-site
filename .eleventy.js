@@ -5,10 +5,8 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/js");
     eleventyConfig.addPassthroughCopy("src/style.css");
 
-    // 判斷是否為生產環境 (GitHub Pages 部署)
-    // 如果執行 npm run build，輸出時加上路徑前綴；如果是 8080 預覽，則使用根目錄
-    const isProduction = process.env.NODE_ENV === 'production';
-    const pathPrefix = isProduction ? "/game-info-site/" : "/";
+    // 強制鎖定 GitHub Pages 的路徑前綴，確保線上環境 100% 正常
+    const pathPrefix = "/game-info-site/";
 
     return {
         dir: {
