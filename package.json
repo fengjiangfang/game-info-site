@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "eleventy --serve",
-    "build": "eleventy"
+    "build": "cross-env NODE_ENV=production npx @11ty/eleventy",
+    "deploy": "git add . && git commit -m '🚀 Deploy update' && git push origin main"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   "homepage": "https://github.com/fengjiangfang/Power#readme",
   "description": "",
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "^3.1.2",
+    "cross-env": "^10.1.0"
   }
 }

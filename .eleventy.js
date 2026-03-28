@@ -17,11 +17,13 @@ module.exports = function (eleventyConfig) {
     reloadDelay: 200 // 加入 200ms 的緩衝，確保檔案寫入完整後才刷新
   });
 
+  const isProduction = process.env.NODE_ENV === "production";
+
   return {
     dir: {
       input: "src",
       output: "dist"
     },
-    pathPrefix: "/game-info-site/"
+    pathPrefix: isProduction ? "/game-info-site/" : "/"
   };
 };
