@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ site.name }}{% if title %}｜{{ title }}{% endif %}</title>
-    <link rel="stylesheet" href="{{ '/style.css' | url }}">
-    <link rel="stylesheet" href="{{ '/css/dungeons.css' | url }}">
+    {# 動態判斷路徑前綴：GitHub Pages 使用 /game-info-site/，本地開發使用 / #}
+    {% set pathPrefix = "/game-info-site/" if not pkg else "/" %}
+    <link rel="stylesheet" href="{{ pathPrefix }}style.css">
+    <link rel="stylesheet" href="{{ pathPrefix }}css/dungeons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         window.globalImageErrorFallback = function(img) {
@@ -96,7 +98,7 @@
         </main>
     </div>
 
-    <script src="{{ '/js/dungeon-interact.js' | url }}"></script>
-    <script src="{{ '/js/sidebar-logic.js' | url }}"></script>
+    <script src="{{ pathPrefix }}js/dungeon-interact.js"></script>
+    <script src="{{ pathPrefix }}js/sidebar-logic.js"></script>
 </body>
 </html>
