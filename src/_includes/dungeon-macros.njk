@@ -98,22 +98,23 @@
 </div>
 {% endmacro %}
 
-{% macro stageRow(stageNum, title, dungeon) %}
+{% macro stageRow(num, title, dungeon) %}
+{% set cn = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'] %}
 <li class="timeline-row">
     <div class="timeline-marker"></div>
     <div class="timeline-left-panel">
-        <img id="stage-{{ stageNum }}-img" 
-             src="{{ ('/images/組隊副本/' + dungeon + '/第' + stageNum + '階段.webp') | url }}" 
-             alt="第{{ stageNum }}階段"
+        <img id="stage-{{ num }}-img" 
+             src="{{ ('/images/組隊副本/' + dungeon + '/第' + num + '階段.webp') | url }}" 
+             alt="第{{ cn[num] }}階段"
              class="stage-preview-img"
              onerror="window.globalImageErrorFallback(this)">
-        <div class="stage-caption" id="stage-{{ stageNum }}-img-caption">第{{ stageNum }}階段</div>
+        <div class="stage-caption" id="stage-{{ num }}-img-caption">第{{ cn[num] }}階段</div>
     </div>
     <div class="dungeon-flag-wrapper">
         <div class="dungeon-flag-large">
             <div class="stage-color-bar">
                 <h3 class="stage-header">
-                    <span class="stage-badge">第{{ stageNum }}階段</span>
+                    <span class="stage-badge">第{{ cn[num] }}階段</span>
                     <span class="stage-title">{{ title | safe }}</span>
                 </h3>
                 {{ caller() }}
@@ -123,16 +124,16 @@
 </li>
 {% endmacro %}
 
-{% macro npc(name, src, stageNum, color) -%}
+{% macro npc(name, src, stage, color) -%}
 <span class="npc-hover" 
-      onmouseover="setHoverImg('{{ ('/images/' + src.replace(/\.(png|gif|jpg|jpeg)$/i, '.webp')) | url }}', 'stage-{{ stageNum }}-img', '{{ name }}', '{{ color }}')" 
-      onmouseout="resetHoverImg('stage-{{ stageNum }}-img')">{{ name }}</span>
+      onmouseover="setHoverImg('{{ ('/images/' + (src.replace('.png', '.webp') if src else '')) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '{{ color }}')" 
+      onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</span>
 {%- endmacro %}
 
-{% macro mob(name, src, stageNum) -%}
+{% macro mob(name, src, stage) -%}
 <span class="mob-hover" 
-      onmouseover="setHoverImg('{{ ('/images/' + src.replace(/\.(png|gif|jpg|jpeg)$/i, '.webp')) | url }}', 'stage-{{ stageNum }}-img', '{{ name }}', '#c0392b')" 
-      onmouseout="resetHoverImg('stage-{{ stageNum }}-img')">{{ name }}</span>
+      onmouseover="setHoverImg('{{ ('/images/' + (src.replace('.png', '.webp') if src else '')) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '#c0392b')" 
+      onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</span>
 {%- endmacro %}
 
 {% macro item(name) -%}
