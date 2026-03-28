@@ -1,60 +1,85 @@
-// 圖片預載與換圖邏輯 (優化 GitHub 遲鈍感)
-function preloadImages() {
-    const hoverElements = document.querySelectorAll('.npc-hover, .mob-hover');
-    hoverElements.forEach(el => {
-        const mouseOverAttr = el.getAttribute('onmouseover');
-        if (mouseOverAttr) {
-            const match = mouseOverAttr.match(/'([^']+)'/);
-            if (match && match[1]) {
-                const img = new Image();
-                img.src = match[1];
-            }
-        }
-    });
+// 圖片預載緩存池
+const imageCache = {};
 
-    // 預載原始背景圖
-    document.querySelectorAll('.timeline-left-panel img').forEach(img => {
-        img.__originalSrc = img.src;
-    });
+// 預載函數：給予路徑，預先加載到記憶體
+function preloadImage(url) {
+    if (!url || imageCache[url]) return;
+    const img = new Image();
+    img.src = url;
+    imageCache[url] = img;
 }
 
-window.setHoverImg = function(url, imgId, name, color) {
-    const img = document.getElementById(imgId);
-    const caption = document.getElementById(imgId + '-caption');
-    if (img) {
-        img.dataset.hovering = 'true';
-        img.src = url;
-        img.style.borderColor = color;
-        img.style.boxShadow = `0 0 20px ${color}44`;
+// 懸停切換函數：滑鼠碰觸時觸發
+window.setHoverImg = function(imgUrl, targetId, title, color) {
+    const targetImg = document.getElementById(targetId);
+    if (!targetImg) return;
+
+    // 紀錄原始路徑，供還原使用
+    if (!targetImg._originalSrc) {
+        targetImg._originalSrc = targetImg.src;
     }
+
+    // 標記目前正在懸停，防止 GIF 邏輯干擾
+    targetImg.dataset.hovering = 'true';
+    
+    // 切換圖片
+    targetImg.src = imgUrl;
+
+    // 更新圖片說明文字與顏色
+    const captionId = targetId + '-caption';
+    const caption = document.getElementById(captionId);
     if (caption) {
-        caption.innerText = name;
-        caption.style.background = color;
+        caption.innerText = title;
+        caption.style.color = color;
+        caption.style.fontWeight = '900';
     }
 };
 
-window.resetHoverImg = function(imgId) {
-    const img = document.getElementById(imgId);
-    const caption = document.getElementById(imgId + '-caption');
-    if (img) {
-        img.dataset.hovering = 'false';
-        // 恢復原始圖片 (如果是 GIF，由 setInterval 處理)
-        img.src = img.__originalSrc || img.src;
-        img.style.borderColor = 'transparent';
-        img.style.boxShadow = 'none';
+// 還原函數：滑鼠離開時觸發
+window.resetHoverImg = function(targetId) {
+    const targetImg = document.getElementById(targetId);
+    if (!targetImg) return;
+
+    // 還原為該階段原本的圖片
+    if (targetImg._originalSrc) {
+        targetImg.src = targetImg._originalSrc;
     }
+
+    // 清除懸停標記
+    targetImg.dataset.hovering = 'false';
+
+    // 還原說明文字與顏色
+    const captionId = targetId + '-caption';
+    const caption = document.getElementById(captionId);
     if (caption) {
-        const stageNumStr = imgId.split('-')[1];
-        const cn = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
-        caption.innerText = '第' + cn[parseInt(stageNumStr)] + '階段';
-        caption.style.background = 'rgba(0, 0, 0, 0.6)';
+        const row = targetImg.closest('.timeline-row');
+        const badge = row ? row.querySelector('.stage-badge') : null;
+        caption.innerText = badge ? badge.innerText : '第x階段';
+        caption.style.color = '';
+        caption.style.fontWeight = '';
     }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    preloadImages();
-    
+    // 1. 執行圖片智慧預載
+    // 遍歷所有 npc-hover 與 mob-hover 的 onclick/onmouseover 屬性，提取路徑
+    setTimeout(() => {
+        const hoverElements = document.querySelectorAll('.npc-hover, .mob-hover');
+        hoverElements.forEach(el => {
+            const attr = el.getAttribute('onmouseover');
+            if (attr) {
+                // 從 setHoverImg('path', ...) 中提取路徑
+                const match = attr.match(/setHoverImg\(['"](.*?)['"]/);
+                if (match && match[1]) {
+                    preloadImage(match[1]);
+                }
+            }
+        });
+        console.log(`[SmartCache] 已預載 ${Object.keys(imageCache).length} 張切換圖`);
+    }, 1000); // 延後一秒執行預載，確保不影響首屏載入
+
     const allDetails = document.querySelectorAll('details');
+    // ... (其餘導航邏輯保持不變)
 
     document.querySelectorAll('details.main-group, details.feature-subgroup').forEach(detail => {
         detail.addEventListener('mouseenter', () => {
@@ -151,16 +176,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// GIF 暫動與顯示處理邏輯 (優化頻率)
+// GIF 暫動處理邏輯
 setInterval(() => {
     const stageImages = document.querySelectorAll('.timeline-left-panel img');
 
     stageImages.forEach(img => {
-        // 如果正在懸停切換圖，暫時跳過 GIF 處理邏輯，避免閃爍
-        if (img.dataset.hovering === 'true') return;
-
         const isGif = img.src.toLowerCase().includes('.gif');
         const row = img.closest('.timeline-row');
+        // 嚴格檢查進度條 (row) 是否處於 active 狀態
         const isActive = row && row.classList.contains('active');
 
         if (isGif && img.complete && img.naturalWidth > 0 && !img.__gifStaticParsed) {
@@ -177,16 +200,23 @@ setInterval(() => {
                     img.__gifStaticSrc = canvas.toDataURL('image/png');
                     img.__gifStaticParsed = true;
                 }
-            } catch (err) { }
+            } catch (err) {
+                // 忽略跨域問題
+            }
         }
 
-        if (img.__gifStaticParsed) {
+        if (img.__gifStaticParsed && img.dataset.hovering !== 'true') {
             if (isActive) {
-                if (img.src !== img.__gifAnimSrc) img.src = img.__gifAnimSrc;
+                // 當前階段：啟動動圖
+                if (img.src !== img.__gifAnimSrc) {
+                    img.src = img.__gifAnimSrc;
+                }
             } else {
-                if (img.src !== img.__gifStaticSrc) img.src = img.__gifStaticSrc;
+                // 非當前階段：切換為靜照
+                if (img.src !== img.__gifStaticSrc) {
+                    img.src = img.__gifStaticSrc;
+                }
             }
         }
     });
-}, 350);
-
+}, 300);
