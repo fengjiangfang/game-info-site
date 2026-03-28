@@ -34,13 +34,13 @@ title: 毒霧森林
     }, '毒霧森林', '艾靈森林:深沉精靈之林') }}
 
     <ul class="dungeon-timeline-full">
-        {% call() stageRow(1, '初入森林', '毒霧森林', 'gif') %}
+        {% call() stageRow(1, '初入森林', '毒霧森林') %}
         <ul class="rule-list">
             <li>清理地圖上所有怪物，擊殺完畢後即可前往下一階段。</li>
         </ul>
         {% endcall %}
 
-        {% call() stageRow(2, '變質的森林', '毒霧森林', 'gif') %}
+        {% call() stageRow(2, '變質的森林', '毒霧森林') %}
         <ul class="rule-list">
             <li>地圖左右方將會生成怪物，需將怪物引誘至 {{ mob('地圖中央', '毒霧森林/地圖中央.png', 2) }} 才可進行擊殺。</li>
             <li>擊殺後會掉落 {{ item('劇烈毒液') }}，此道具無法撿取，稍等幾秒後會變為 {{ item('稀釋毒液') }}，此時再進行撿取。</li>
@@ -57,7 +57,7 @@ title: 毒霧森林
         </ul>
         {% endcall %}
 
-        {% call() stageRow(4, '中毒的森林', '毒霧森林', 'gif') %}
+        {% call() stageRow(4, '中毒的森林', '毒霧森林') %}
         <ul class="rule-list">
             <li>與NPC對話後可取得 {{ item('淨化之珠') }}，此道具會在背包消耗欄位。</li>
             <li>將地圖上怪物削弱至低血量後，即可使用 {{ item('淨化之珠') }} 進行淨化。</li>
@@ -66,7 +66,7 @@ title: 毒霧森林
         </ul>
         {% endcall %}
 
-        {% call() stageRow(5, '森林空地', '毒霧森林', 'gif') %}
+        {% call() stageRow(5, '森林空地', '毒霧森林') %}
         <ul class="rule-list">
             <li>忍耐地圖，最上方將有左、中、右共 3 個平台，每個平台都有各 3 個箱子。</li>
             <li><span class="tip-text">💡 提示：</span> {{ mob('左平台', '毒霧森林/左平台.png', 5) }} 、 {{ mob('中平台', '毒霧森林/中平台.png', 5) }} 、 {{ mob('右平台', '毒霧森林/右平台.png', 5) }} 都有特殊路徑，其餘路徑會踩空掉落。</li>

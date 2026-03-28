@@ -9,15 +9,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         window.globalImageErrorFallback = function(img) {
-            if (!img.dataset.triedGif) {
+            img.dataset.hasError = 'true';
+            let nextSrc = '';
+            if (!img.dataset.triedPng) {
+                img.dataset.triedPng = 'true';
+                nextSrc = img.src.replace(/\.(gif|jpg|jpeg|webp)$/i, '.png');
+            } else if (!img.dataset.triedGif) {
                 img.dataset.triedGif = 'true';
-                img.src = img.src.replace(/\.(png|jpg|jpeg|webp)$/i, '.gif');
+                nextSrc = img.src.replace(/\.(png|jpg|jpeg|webp)$/i, '.gif');
             } else if (!img.dataset.triedJpg) {
                 img.dataset.triedJpg = 'true';
-                img.src = img.src.replace(/\.(png|gif|jpeg|webp)$/i, '.jpg');
+                nextSrc = img.src.replace(/\.(png|gif|jpeg|webp)$/i, '.jpg');
             } else {
                 img.onerror = null;
                 img.src = 'https://placehold.co/600x450/fff4e6/ff9f43?text=NO+IMAGE&font=Oswald';
+                return;
+            }
+
+            if (nextSrc) {
+                img.src = nextSrc;
+                // [重要] 同步更新 sidebar-logic 依賴之原始來源，防止輪詢時又切回錯誤路徑
+                img.__originalSrc = nextSrc;
             }
         };
     </script>

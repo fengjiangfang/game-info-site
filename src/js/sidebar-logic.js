@@ -137,6 +137,9 @@ function resetHoverImg(imgId) {
 
     // 立刻執行還原邏輯
     refreshStageImage(img);
+    
+    // 恢復外框顏色為預設 (橘色)
+    img.style.borderColor = '';
 
     const num = imgId.split('-')[1];
     const originalCaption = `第${cn[num]}階段`;
@@ -195,6 +198,9 @@ function setHoverImg(url, imgId, name, color) {
 
     img.dataset.hovering = 'true';
     img.classList.add('loading');
+    
+    // 變更圖片外框顏色以符合文字顏色
+    img.style.borderColor = color;
 
     const newImg = new Image();
     newImg.onload = () => {
