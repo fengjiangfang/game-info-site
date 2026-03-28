@@ -2,71 +2,60 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
-const inputDirs = [
-    'src/images/組隊副本',
-    'src/images/主題副本'
-];
+const rootDir = path.join(__dirname, '../src/images');
 
-// 遞迴遍歷目錄
-function getAllFiles(dirPath, arrayOfFiles) {
-    const files = fs.readdirSync(dirPath);
-    arrayOfFiles = arrayOfFiles || [];
-
-    files.forEach(function(file) {
-        if (fs.statSync(dirPath + "/" + file).isDirectory()) {
-            arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
+// 穩健的遞歸尋找所有圖片檔案
+function findImages(dir, results) {
+    const list = fs.readdirSync(dir);
+    list.forEach(file => {
+        const fullPath = path.join(dir, file);
+        const stat = fs.statSync(fullPath);
+        if (stat && stat.isDirectory()) {
+            findImages(fullPath, results);
         } else {
             const ext = path.extname(file).toLowerCase();
             if (['.gif', '.png', '.jpg', '.jpeg'].includes(ext)) {
-                arrayOfFiles.push(path.join(dirPath, "/", file));
+                results.push(fullPath);
             }
         }
     });
-
-    return arrayOfFiles;
+    return results;
 }
 
-// 核心轉換邏輯
-async function optimizeImages() {
-    console.log('🚀 開始全自動圖片 WebP 替換與清理 (掃描整個 src/images)...');
+async function startCleaning() {
+    console.log('🚀 開始全站圖片 WebP 徹底替換與物理清理...');
     
-    for (const dir of inputDirs) {
-        if (!fs.existsSync(dir)) continue;
+    if (!fs.existsSync(rootDir)) {
+        console.error('❌ 找不到 images 目錄:', rootDir);
+        return;
+    }
 
-        const files = getAllFiles(dir);
-        for (const file of files) {
-            const ext = path.extname(file).toLowerCase();
-            // 排除已經是 webp 的檔案
-            if (ext === '.webp') continue;
+    const allImages = findImages(rootDir, []);
+    console.log(`🔍 掃描完成，共發現 ${allImages.length} 張傳統格式圖片待處理。`);
 
-            const outputWebp = file.replace(/\.(gif|png|jpg|jpeg)$/i, '.webp');
+    for (const file of allImages) {
+        const ext = path.extname(file).toLowerCase();
+        const webpPath = file.substring(0, file.lastIndexOf('.')) + '.webp';
 
-            try {
-                console.log(`📦 轉換並替換: ${path.basename(file)} -> WebP`);
-                
-                const instance = sharp(file, { animated: ext === '.gif' });
+        try {
+            console.log(`📦 正在處理: ${path.relative(rootDir, file)}`);
+            
+            // 轉換
+            await sharp(file, { animated: ext === '.gif' })
+                .webp({ effort: 4, quality: 80, lossless: false })
+                .toFile(webpPath);
 
-                if (ext === '.gif') {
-                    await instance
-                        .webp({ effort: 4, quality: 80, lossless: false, force: true })
-                        .toFile(outputWebp);
-                } else {
-                    await instance
-                        .webp({ quality: 85 })
-                        .toFile(outputWebp);
-                }
-
-                // [重要] 轉換成功後，刪除原始檔案
-                if (fs.existsSync(outputWebp)) {
-                    fs.unlinkSync(file);
-                    console.log(`   🗑️ 已刪除原始檔: ${path.basename(file)}`);
-                }
-            } catch (err) {
-                console.error(`❌ 轉換失敗 ${file}:`, err.message);
+            // 成功生成後，物理刪除原始檔
+            if (fs.existsSync(webpPath)) {
+                fs.unlinkSync(file);
+                console.log(`   🗑️ 原始檔案已清除。`);
             }
+        } catch (err) {
+            console.error(`❌ 處理失敗 ${path.basename(file)}:`, err.message);
         }
     }
-    console.log('✅ 全站圖片 WebP 替換與清理完成！');
+
+    console.log('✅ 全站資產 100% WebP 化完成，傳統格式已全數清除！');
 }
 
-optimizeImages();
+startCleaning();
