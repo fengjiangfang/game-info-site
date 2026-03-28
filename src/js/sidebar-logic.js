@@ -14,18 +14,13 @@ window.setHoverImg = function(imgUrl, targetId, title, color) {
     const targetImg = document.getElementById(targetId);
     if (!targetImg) return;
 
-    // 紀錄原始路徑，供還原使用
     if (!targetImg._originalSrc) {
         targetImg._originalSrc = targetImg.src;
     }
 
-    // 標記目前正在懸停，防止 GIF 邏輯干擾
     targetImg.dataset.hovering = 'true';
-    
-    // 切換圖片
     targetImg.src = imgUrl;
 
-    // 更新圖片說明文字與顏色
     const captionId = targetId + '-caption';
     const caption = document.getElementById(captionId);
     if (caption) {
@@ -40,15 +35,12 @@ window.resetHoverImg = function(targetId) {
     const targetImg = document.getElementById(targetId);
     if (!targetImg) return;
 
-    // 還原為該階段原本的圖片
     if (targetImg._originalSrc) {
         targetImg.src = targetImg._originalSrc;
     }
 
-    // 清除懸停標記
     targetImg.dataset.hovering = 'false';
 
-    // 還原說明文字與顏色
     const captionId = targetId + '-caption';
     const caption = document.getElementById(captionId);
     if (caption) {
@@ -61,14 +53,12 @@ window.resetHoverImg = function(targetId) {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. 執行圖片智慧預載
-    // 遍歷所有 npc-hover 與 mob-hover 的 onclick/onmouseover 屬性，提取路徑
+    // 智慧預載
     setTimeout(() => {
         const hoverElements = document.querySelectorAll('.npc-hover, .mob-hover');
         hoverElements.forEach(el => {
             const attr = el.getAttribute('onmouseover');
             if (attr) {
-                // 從 setHoverImg('path', ...) 中提取路徑
                 const match = attr.match(/setHoverImg\(['"](.*?)['"]/);
                 if (match && match[1]) {
                     preloadImage(match[1]);
@@ -76,10 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         console.log(`[SmartCache] 已預載 ${Object.keys(imageCache).length} 張切換圖`);
-    }, 1000); // 延後一秒執行預載，確保不影響首屏載入
+    }, 1000);
 
     const allDetails = document.querySelectorAll('details');
-    // ... (其餘導航邏輯保持不變)
 
     document.querySelectorAll('details.main-group, details.feature-subgroup').forEach(detail => {
         detail.addEventListener('mouseenter', () => {
@@ -176,14 +165,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// GIF 暫動處理邏輯
+// GIF 靜放處理邏輯
 setInterval(() => {
     const stageImages = document.querySelectorAll('.timeline-left-panel img');
 
     stageImages.forEach(img => {
         const isGif = img.src.toLowerCase().includes('.gif');
         const row = img.closest('.timeline-row');
-        // 嚴格檢查進度條 (row) 是否處於 active 狀態
         const isActive = row && row.classList.contains('active');
 
         if (isGif && img.complete && img.naturalWidth > 0 && !img.__gifStaticParsed) {
@@ -200,22 +188,14 @@ setInterval(() => {
                     img.__gifStaticSrc = canvas.toDataURL('image/png');
                     img.__gifStaticParsed = true;
                 }
-            } catch (err) {
-                // 忽略跨域問題
-            }
+            } catch (err) {}
         }
 
         if (img.__gifStaticParsed && img.dataset.hovering !== 'true') {
             if (isActive) {
-                // 當前階段：啟動動圖
-                if (img.src !== img.__gifAnimSrc) {
-                    img.src = img.__gifAnimSrc;
-                }
+                if (img.src !== img.__gifAnimSrc) img.src = img.__gifAnimSrc;
             } else {
-                // 非當前階段：切換為靜照
-                if (img.src !== img.__gifStaticSrc) {
-                    img.src = img.__gifStaticSrc;
-                }
+                if (img.src !== img.__gifStaticSrc) img.src = img.__gifStaticSrc;
             }
         }
     });
