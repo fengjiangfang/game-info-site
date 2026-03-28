@@ -52,8 +52,8 @@
                     <div class="sub-channel-container">
 
                         <details class="channel-group feature-subgroup" id="subgroup-theme" {% if page.url and (page.url == '/主題副本/' or '/主題副本/' in page.url) %}open{% endif %}>
-                            <summary class="channel-item sub-channel {% if page.url == '/主題副本/' %}active{% endif %}" onclick="if(this.parentNode.open){event.preventDefault();} window.location.href='{{ '/主題副本/' | url }}';" style="cursor: pointer;">
-                                <span class="channel-name">　★ 主體副本</span>
+                            <summary class="channel-item sub-channel {% if page.url == '/主題副本/' %}active{% endif %}" onclick="if(this.parentNode.open){event.preventDefault();} window.location.href='/主題副本/';" style="cursor: pointer;">
+                                <span class="channel-name">　★ 主題副本</span>
                             </summary>
                             <div class="sub-channel-container" style="padding-left: 8px;">
                                 <a href="{{ '/主題副本/菇菇王國/' | url }}" class="channel-item sub-channel {% if page.url == '/主題副本/菇菇王國/' %}active{% endif %}">
@@ -72,15 +72,10 @@
                                     <span class="channel-name">　　└ 克里提亞斯</span>
                                 </a>
                             </div>
-                        </details>     </a>
-                                <a href="/主題副本/克里提亞斯/" class="channel-item sub-channel {% if page.url == '/主題副本/克里提亞斯/' %}active{% endif %}">
-                                    <span class="channel-name">　　└ 克里提亞斯</span>
-                                </a>
-                            </div>
                         </details>
 
                         <details class="channel-group feature-subgroup" id="subgroup-party" {% if page.url and (page.url == '/組隊副本/' or '/組隊副本/' in page.url) %}open{% endif %}>
-                            <summary class="channel-item sub-channel {% if page.url == '/組隊副本/' %}active{% endif %}" onclick="if(this.parentNode.open){event.preventDefault();} window.location.href='{{ '/組隊副本/' | url }}';" style="cursor: pointer;">
+                            <summary class="channel-item sub-channel {% if page.url == '/組隊副本/' %}active{% endif %}" onclick="if(this.parentNode.open){event.preventDefault();} window.location.href='/組隊副本/';" style="cursor: pointer;">
                                 <span class="channel-name">　★ 組隊副本</span>
                             </summary>
                             <div class="sub-channel-container" style="padding-left: 8px;">

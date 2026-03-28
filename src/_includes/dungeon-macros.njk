@@ -158,11 +158,11 @@
 {% endmacro %}
 
 {% macro npc(name, img, stage) %}
-<strong class="npc-hover" onmouseover="setHoverImg('/images/組隊副本/{{ img }}', 'stage-{{ stage }}-img', '{{ name }}', '#27ae60')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
+<strong class="npc-hover" onmouseover="setHoverImg('{{ ('/images/組隊副本/' + img) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '#27ae60')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
 {%- endmacro %}
 
 {% macro mob(name, img, stage) %}
-<strong class="mob-hover" onmouseover="setHoverImg('/images/組隊副本/{{ img }}', 'stage-{{ stage }}-img', '{{ name }}', '#9b59b6')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
+<strong class="mob-hover" onmouseover="setHoverImg('{{ ('/images/組隊副本/' + img) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '#9b59b6')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
 {%- endmacro %}
 
 {% macro item(name) -%}
@@ -178,15 +178,15 @@
     <div class="dungeon-nav-inner">
         {% if prev %}
         <div class="dungeon-nav-prev">
-            <a href="/{{ type }}副本/{{ prev }}/" class="nav-side-btn"><i class="fa-solid fa-arrow-left"></i> {{ prev }}</a>
+            <a href="{{ ('/' + type + '副本/' + prev + '/') | url }}" class="nav-side-btn"><i class="fa-solid fa-arrow-left"></i> {{ prev }}</a>
         </div>
         {% endif %}
 
-        <a href="/{{ type }}副本/" class="nav-center-btn">返回{{ type }}副本總覽</a>
+        <a href="{{ ('/' + type + '副本/') | url }}" class="nav-center-btn">返回{{ type }}副本總覽</a>
         
         {% if next %}
         <div class="dungeon-nav-next">
-            <a href="/{{ type }}副本/{{ next }}/" class="nav-side-btn">{{ next }} <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="{{ ('/' + type + '副本/' + next + '/') | url }}" class="nav-side-btn">{{ next }} <i class="fa-solid fa-arrow-right"></i></a>
         </div>
         {% endif %}
     </div>
