@@ -16,9 +16,9 @@ while ($true) {
         
         if (-not $ignored) {
             $n = $change.Name
-            Write-Host "`n$(Get-Date -Format 'HH:mm:ss') [CHANGE] : $n" -ForegroundColor Yellow
-            Write-Host "📦 Building locally..." -ForegroundColor Cyan
-            npx @11ty/eleventy --quiet
+            Write-Host "`n$(Get-Date -Format 'HH:mm:ss') [SYNCING] : $n" -ForegroundColor Yellow
+            Write-Host "📦 Building with Production prefix..." -ForegroundColor Cyan
+            npm run build
             Write-Host "📤 Pushing to GitHub..." -ForegroundColor Cyan
             git add .
             git commit -m "🚀 Auto sync: $n" --quiet
