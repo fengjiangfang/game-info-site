@@ -1,43 +1,48 @@
-# 🚀 GitHub Auto-Push Watcher (V3 - Stable)
+# 🚀 GitHub Auto-Push Watcher (V5 - Ultimate Reliability)
 $path = (Get-Item -Path ".\").FullName
-
 $watcher = New-Object IO.FileSystemWatcher
 $watcher.Path = $path
 $watcher.Filter = '*.*'
 $watcher.IncludeSubdirectories = $true
 $watcher.EnableRaisingEvents = $true
 
-Write-Host "--------------------------------------------------------" -ForegroundColor Cyan
-Write-Host "👀 Monitoring changes... KEEP THIS WINDOW OPEN." -ForegroundColor Green
+Write-Host "`n--------------------------------------------------------" -ForegroundColor Cyan
+Write-Host "🔥 ULTRA FAST SYNC ACTIVE - MONITORING CHANGES..." -ForegroundColor Green
 Write-Host "📍 Path: $path" -ForegroundColor White
 Write-Host "--------------------------------------------------------" -ForegroundColor Cyan
 
-$action = {
-    $itemPath = $Event.SourceEventArgs.FullPath
-    $changeType = $Event.SourceEventArgs.ChangeType
-    $fileName = [System.IO.Path]::GetFileName($itemPath)
+$timer = [System.Diagnostics.Stopwatch]::StartNew()
+$lastPath = ""
+
+while ($true) {
+    # 使用等待同步事件，徹底避開 Register-ObjectEvent 的語法問題
+    $change = $watcher.WaitForChanged([System.IO.WatcherChangeTypes]::All, 1000)
     
-    # 排除不需要追蹤的清單
-    if ($itemPath -notmatch 'dist|.git|node_modules|deploy.bat|auto_push.ps1') {
-        Write-Host ""
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') [DETECTED] $changeType : $fileName" -ForegroundColor Yellow
-        Write-Host "📤 Pushing to GitHub..." -ForegroundColor Cyan
-        git add .
-        git commit -m "🚀 Auto update ($changeType): $fileName"
-        git push origin main
-        Write-Host "✅ Done! Site updating..." -ForegroundColor Green
+    if ($change.TimedOut -eq $false) {
+        $fullPath = $change.FullPath
+        $fileName = $change.Name
+        
+        # 精確排除系統目錄與排除名單
+        if ($fullPath -notmatch 'dist|.git|node_modules|deploy.bat|auto_push.ps1') {
+            # 防抖動機制：避免同一個檔案在 3 秒內重複 Push
+            if ($lastPath -ne $fullPath -or $timer.ElapsedMilliseconds -gt 3000) {
+                Write-Host "`n$(Get-Date -Format 'HH:mm:ss') [SYNCING] $($change.ChangeType) : $fileName" -ForegroundColor Yellow
+                try {
+                    # 取得相對路徑實現極速 Add
+                    $rel = (Resolve-Path -Path $fullPath -Relative)
+                    Write-Host "📤 Precision Push: $rel" -ForegroundColor Cyan
+                    
+                    git add $rel
+                    git commit -m "⚡ Sync ($($change.ChangeType)): $fileName" --quiet
+                    git push origin main --quiet
+                    
+                    Write-Host "✅ Streamlined Update Successful!" -ForegroundColor Green
+                } catch {
+                    Write-Host "⚠️ Skip push: $fileName" -ForegroundColor Gray
+                }
+                $lastPath = $fullPath
+                $timer.Restart()
+            }
+        }
     }
-}
-
-$handlers = @()
-$handlers += Register-ObjectEvent $watcher "Changed" -Action $action
-$handlers += Register-ObjectEvent $watcher "Created" -Action $action
-$handlers += Register-ObjectEvent $watcher "Deleted" -Action $action
-$handlers += Register-ObjectEvent $watcher "Renamed" -Action $action
-
-try {
-    while ($true) { Start-Sleep -Seconds 1 }
-} finally {
-    $handlers | Unregister-Event
-    $watcher.Dispose()
 }
