@@ -11,15 +11,20 @@
         window.globalImageErrorFallback = function(img) {
             img.dataset.hasError = 'true';
             let nextSrc = '';
-            if (!img.dataset.triedPng) {
+            
+            // 偵測順序：WebP (最輕) -> PNG (靜態) -> GIF (動態) -> JPG (相容)
+            if (!img.dataset.triedWebp) {
+                img.dataset.triedWebp = 'true';
+                nextSrc = img.src.replace(/\.(gif|png|jpg|jpeg)$/i, '.webp');
+            } else if (!img.dataset.triedPng) {
                 img.dataset.triedPng = 'true';
-                nextSrc = img.src.replace(/\.(gif|jpg|jpeg|webp)$/i, '.png');
+                nextSrc = img.src.replace(/\.(gif|webp|jpg|jpeg)$/i, '.png');
             } else if (!img.dataset.triedGif) {
                 img.dataset.triedGif = 'true';
-                nextSrc = img.src.replace(/\.(png|jpg|jpeg|webp)$/i, '.gif');
+                nextSrc = img.src.replace(/\.(webp|png|jpg|jpeg)$/i, '.gif');
             } else if (!img.dataset.triedJpg) {
                 img.dataset.triedJpg = 'true';
-                nextSrc = img.src.replace(/\.(png|gif|jpeg|webp)$/i, '.jpg');
+                nextSrc = img.src.replace(/\.(webp|png|gif|jpeg)$/i, '.jpg');
             } else {
                 img.onerror = null;
                 img.src = 'https://placehold.co/600x450/fff4e6/ff9f43?text=NO+IMAGE&font=Oswald';
@@ -28,7 +33,6 @@
 
             if (nextSrc) {
                 img.src = nextSrc;
-                // [重要] 同步更新 sidebar-logic 依賴之原始來源，防止輪詢時又切回錯誤路徑
                 img.__originalSrc = nextSrc;
             }
         };

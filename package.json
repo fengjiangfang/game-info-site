@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npx @11ty/eleventy --serve",
-    "build": "npx @11ty/eleventy --pathprefix=game-info-site"
+    "start": "node scripts/optimize-images.js && npx @11ty/eleventy --serve",
+    "build": "node scripts/optimize-images.js && npx @11ty/eleventy --pathprefix=game-info-site"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/fengjiangfang/Power#readme",
   "description": "",
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "^3.1.2",
+    "sharp": "^0.34.5"
   }
 }
