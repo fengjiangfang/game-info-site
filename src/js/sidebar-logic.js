@@ -94,7 +94,87 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+    
+    // 全域圖片預載入與平滑切換
+    preloadAllDungeonImages();
 });
+
+// 預載入所有 NPC/怪物圖片
+function preloadAllDungeonImages() {
+    const hoverElements = document.querySelectorAll('[onmouseover*="setHoverImg"]');
+    const preloadPaths = new Set();
+
+    hoverElements.forEach(el => {
+        const mouseOverAttr = el.getAttribute('onmouseover');
+        const match = mouseOverAttr.match(/setHoverImg\(['"](.*?)['"]/);
+        if (match && match[1]) {
+            preloadPaths.add(match[1]);
+        }
+    });
+
+    // 也預載入階段圖片的 GIF 與 JPG 版本
+    document.querySelectorAll('.timeline-left-panel img').forEach(img => {
+        if (img.src) {
+            preloadPaths.add(img.src.replace(/\.(png|jpg|jpeg|webp)$/i, '.gif'));
+            preloadPaths.add(img.src.replace(/\.(gif|png|jpeg|webp)$/i, '.jpg'));
+        }
+    });
+
+    preloadPaths.forEach(path => {
+        const img = new Image();
+        img.src = path;
+    });
+}
+
+// 平滑切換圖片
+function setHoverImg(url, imgId, name, color) {
+    const img = document.getElementById(imgId);
+    if (!img) return;
+
+    // 標記正在懸停，防止被 GIF 暫動邏輯覆蓋
+    img.dataset.hovering = 'true';
+    
+    // 平滑過渡：先半透明
+    img.classList.add('loading');
+    
+    const newImg = new Image();
+    newImg.onload = () => {
+        img.src = url;
+        img.classList.remove('loading');
+    };
+    newImg.src = url;
+
+    const caption = document.getElementById(imgId + '-caption');
+    if (caption) {
+        caption.innerText = name;
+        caption.style.backgroundColor = color;
+        caption.style.color = '#fff';
+    }
+}
+
+function resetHoverImg(imgId) {
+    const img = document.getElementById(imgId);
+    if (!img) return;
+
+    img.dataset.hovering = 'false';
+    img.classList.add('loading');
+
+    const num = imgId.split('-')[1];
+    const originalCaption = `第${cn[num]}階段`;
+    
+    const caption = document.getElementById(imgId + '-caption');
+    if (caption) {
+        caption.innerText = originalCaption;
+        caption.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+    }
+    
+    // 延時一點點恢復，配合 CSS transition
+    setTimeout(() => {
+        img.classList.remove('loading');
+    }, 50);
+}
+
+const cn = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
 // GIF 暫動處理邏輯
 setInterval(() => {
