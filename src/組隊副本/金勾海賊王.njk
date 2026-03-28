@@ -12,7 +12,26 @@ title: 金勾海賊王
 
 <div class="forum-main-card forum-main-card-warm">
     
-    {{ dungeonHeader('５５等 ↑', '３～６人', '３５０００', [{name: '組隊硬幣', value: '1 個'}], '金勾海賊王', '靈藥幻境:海盜船境地') }}
+    {{ dungeonHeader('５５等 ↑', '３～６人', '３５０００', {
+        clear: [
+            { name: '金勾組隊硬幣', value: '1 個' },
+            { name: '洗血精華秘藥罐', value: '10 個' }
+        ],
+        chance: [
+            { name: '轉蛋券', value: '1 個' }
+        ],
+        exchange: [
+            { name: '經驗加倍券', cost: '5 硬幣', value: '四屬+1' },
+            { name: '金勾組隊騎寵', cost: '20 硬幣', value: '四屬+1' }
+        ],
+        run: [
+            { name: '金勾組隊稱號', value: '四屬+1' }
+        ],
+        requirement: [
+            { name: '金勾組隊硬幣', value: '1 個' },
+            { name: '一百萬楓幣袋', value: '10 個' }
+        ]
+    }, '金勾海賊王', '靈藥幻境:海盜船境地') }}
 
     <ul class="dungeon-timeline-full">
         {% call() stageRow(1, '前往海盜船之路', '金勾海賊王') %}

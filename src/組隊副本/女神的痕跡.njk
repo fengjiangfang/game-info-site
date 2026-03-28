@@ -12,7 +12,26 @@ title: 女神的痕跡
 
 <div class="forum-main-card forum-main-card-warm">
     
-    {{ dungeonHeader('５１等 ↑', '５～６人', '１４２０００', [{name: '組隊硬幣', value: '1 個'}], '女神的痕跡', '天空之城:疑問之塔') }}
+    {{ dungeonHeader('５１等 ↑', '５～６人', '１４２０００', {
+        clear: [
+            { name: '女神組隊硬幣', value: '1 個' },
+            { name: '洗血精華秘藥罐', value: '10 個' }
+        ],
+        chance: [
+            { name: '轉蛋券', value: '1 個' }
+        ],
+        exchange: [
+            { name: '經驗加倍券', cost: '5 硬幣', value: '四屬+1' },
+            { name: '女神組隊騎寵', cost: '20 硬幣', value: '四屬+1' }
+        ],
+        run: [
+            { name: '女神組隊稱號', value: '四屬+1' }
+        ],
+        requirement: [
+            { name: '女神組隊硬幣', value: '1 個' },
+            { name: '一百萬楓幣袋', value: '10 個' }
+        ]
+    }, '女神的痕跡', '天空之城:疑問之塔') }}
 
     <ul class="dungeon-timeline-full">
         {% call() stageRow(1, '雅典娜禁地&lt;岔路&gt;', '女神的痕跡') %}

@@ -12,7 +12,26 @@ title: 時空的裂縫
 
 <div class="forum-main-card forum-main-card-warm">
     
-    {{ dungeonHeader('３５等 ↑', '５～６人', '７２２００', [{name: '組隊硬幣', value: '1 個'}], '時空的裂縫', '玩具城:案奧斯塔101樓') }}
+    {{ dungeonHeader('３５等 ↑', '５～６人', '７２２００', {
+        clear: [
+            { name: '玩具組隊硬幣', value: '1 個' },
+            { name: '洗血精華秘藥罐', value: '10 個' }
+        ],
+        chance: [
+            { name: '轉蛋券', value: '1 個' }
+        ],
+        exchange: [
+            { name: '經驗加倍券', cost: '5 硬幣', value: '四屬+1' },
+            { name: '玩具組隊騎寵', cost: '20 硬幣', value: '四屬+1' }
+        ],
+        run: [
+            { name: '玩具組隊稱號', value: '四屬+1' }
+        ],
+        requirement: [
+            { name: '玩具組隊硬幣', value: '1 個' },
+            { name: '一百萬楓幣袋', value: '10 個' }
+        ]
+    }, '時空的裂縫', '玩具城:愛奧斯塔101樓') }}
 
     <ul class="dungeon-timeline-full">
         {% call() stageRow(1, '玩偶之家', '時空的裂縫', 'gif') %}
