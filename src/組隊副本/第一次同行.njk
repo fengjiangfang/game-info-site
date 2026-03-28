@@ -1,0 +1,97 @@
+---
+layout: layout.njk
+title: 第一次同行
+---
+{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav %}
+
+<div class="forum-banner">
+    <div class="forum-banner-content">
+        <h1>第一次同行</h1>
+    </div>
+</div>
+
+<div class="forum-main-card forum-main-card-warm">
+    
+    {{ dungeonHeader('２１等 ↑', '３～６人', '６０００', {
+        clear: [
+            { name: '超綠組隊硬幣', value: '1 個' },
+            { name: '洗血精華秘藥罐', value: '10 個' }
+        ],
+        chance: [
+            { name: '轉蛋券', value: '1 個' }
+        ],
+        exchange: [
+            { name: '經驗加倍券', cost: '5 硬幣', value: '四屬+1' },
+            { name: '超綠組隊騎寵', cost: '20 硬幣', value: '四屬+1' }
+        ],
+        run: [
+            { name: '超綠組隊稱號', value: '四屬+1' }
+        ],
+        requirement: [
+            { name: '超綠組隊硬幣', value: '1 個' },
+            { name: '一百萬楓幣袋', value: '10 個' }
+        ]
+    }, '第一次同行', '維多利亞島:墮落城市') }}
+
+    <ul class="dungeon-timeline-full">
+        {% call() stageRow(1, '組隊訓練場&lt;1階段&gt;', '第一次同行') %}
+        <ul class="rule-list">
+            <li>隊員與 {{ npc('克魯特NPC', '第一次同行/克魯特NPC.png', 1) }} 對話即可查看題目（請將答案報出來給隊友）。</li>
+            <li style="color: #e74c3c; font-weight: 600;">💡 可以統一由「答案數字最低」的隊友負責提交就好，其餘隊友幫忙打。</li>
+            <li>擊殺地圖上的怪物可獲得 {{ item('優惠券') }}，請蒐集與答案相等的數量。</li>
+            <li>將正確的 {{ item('優惠券') }} 數量，提交給 {{ npc('克魯特NPC', '第一次同行/克魯特NPC.png', 1) }} ，即可獲得 {{ item('通行證') }}。</li>
+            <li>總共需蒐集<strong>「隊伍總人數 - 1」</strong>的通行證數量（假設隊伍有5人，就需要蒐集4張）。</li>
+            <li>由隊長提交正確數量的 {{ item('通行證') }} 給 {{ npc('克魯特NPC', '第一次同行/克魯特NPC.png', 1) }} 即可通關。</li>
+        </ul>
+        <div class="info-box">
+            <h4 class="info-box-title"><i class="fa-solid fa-clipboard-question" style="color: #f39c12; margin-right: 8px;"></i>題庫清單</h4>
+            <div class="qa-grid">
+                <div class="qa-grid-item"><span class="item-name">法師一轉要幾等</span> <span class="badge badge-gold qa-badge">答案8</span></div>
+                <div class="qa-grid-item"><span class="item-name">盜賊一轉要幾等</span> <span class="badge badge-gold qa-badge">答案10</span></div>
+                <div class="qa-grid-item"><span class="item-name">法師轉職需要多少智力</span> <span class="badge badge-gold qa-badge">答案20</span></div>
+                <div class="qa-grid-item"><span class="item-name">弓箭手轉職需要多少敏捷</span> <span class="badge badge-gold qa-badge">答案25</span></div>
+                <div class="qa-grid-item"><span class="item-name">幾等才能進行二轉</span> <span class="badge badge-gold qa-badge">答案30</span></div>
+                <div class="qa-grid-item"><span class="item-name">劍士一轉要多少力量</span> <span class="badge badge-gold qa-badge">答案35</span></div>
+            </div>
+        </div>
+        {% endcall %}
+
+        {% call() stageRow(2, '組隊訓練場&lt;2階段&gt;', '第一次同行') %}
+        <ul class="rule-list">
+            <li>地圖共有 <strong>四條繩子</strong>，需有 <strong>三名玩家</strong> 分別吊在不同的繩子上。</li>
+            <li>由隊長點擊 {{ npc('克魯特NPC', '第一次同行/克魯特NPC.png', 2) }} 確認目前組合答案是否正確。</li>
+            <li>若錯誤，請隊員依序往 <strong>順時針</strong> 進行移動。</li>
+            <li>不斷測試組合直到正確答案出來通關為止。</li>
+        </ul>
+        {% endcall %}
+
+        {% call() stageRow(3, '組隊訓練場&lt;3階段&gt;', '第一次同行') %}
+        <ul class="rule-list">
+            <li>地圖共有 <strong>五個貓咪小平台</strong>，需有 <strong>三名玩家</strong> 分別站在不同的平台上。</li>
+            <li>由隊長點擊 {{ npc('克魯特NPC', '第一次同行/克魯特NPC.png', 3) }} 確認目前站位組合是否正確。</li>
+            <li>若錯誤，請隊員依序往 <strong>順時針</strong> 進行移動。</li>
+            <li>不斷測試組合直到正確答案出來通關為止。</li>
+        </ul>
+        {% endcall %}
+
+        {% call() stageRow(4, '組隊訓練場&lt;4階段&gt;', '第一次同行') %}
+        <ul class="rule-list">
+            <li>地圖共有 <strong>六個標有數字的號碼箱子</strong>，需有 <strong>三名玩家</strong> 分別站在箱子上。</li>
+            <li>由隊長點擊 {{ npc('克魯特NPC', '第一次同行/克魯特NPC.png', 4) }} 確認數字組合答案是否正確。</li>
+            <li>若錯誤，請隊員依序 <strong>更換號碼</strong> 站位。</li>
+            <li>不斷測試組合直到正確答案出來通關為止。</li>
+        </ul>
+        {% endcall %}
+
+        {% call() stageRow(5, '組隊訓練場&lt;最後階段&gt;', '第一次同行') %}
+        <ul class="rule-list">
+            <li>擊殺地圖上所有怪物（包含 BOSS 死後召喚出的小怪）。</li>
+            <li>每隻怪物皆會掉落 {{ item('通行證') }}，總共有 10 張，請交給隊長。</li>
+            <li>由隊長點擊 {{ npc('克魯特NPC', '第一次同行/克魯特NPC.png', 5) }} 即可通關！</li>
+        </ul>
+        {% endcall %}
+    </ul>
+    
+    {{ dungeonNav('組隊', '', '時空的裂縫') }}
+
+</div>

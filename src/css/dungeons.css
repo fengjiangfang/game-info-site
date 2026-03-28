@@ -1,0 +1,949 @@
+.dungeon-timeline {
+    list-style: none;
+    padding: 15px 0 0 0;
+    margin: 0;
+    position: relative;
+}
+
+.dungeon-timeline::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 5px;
+    width: 2px;
+    background-color: #ffcc80;
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background-color: #f7f3fd;
+    border: 3px solid #ff9f43;
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 8px rgba(255, 159, 67, 0.4);
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-marker,
+.timeline-item.active .timeline-marker {
+    background-color: #ff9f43;
+    transform: translateY(-50%) scale(1.2);
+    box-shadow: 0 0 12px rgba(255, 159, 67, 0.6);
+}
+
+.timeline-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.timeline-level {
+    font-size: 11px;
+    font-weight: 900;
+    color: #e67e22;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+}
+
+.timeline-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2d3436;
+    transition: color 0.3s ease;
+}
+
+.timeline-item:hover .timeline-name,
+.timeline-item.active .timeline-name {
+    color: #e67e22;
+}
+
+.dungeon-flag-wrapper {
+    flex: 1;
+    filter: drop-shadow(0 0 2px #ffeaa7) drop-shadow(0 4px 8px rgba(255, 159, 67, 0.15));
+    transition: filter 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.dungeon-flag-wrapper:hover,
+.timeline-item.active .dungeon-flag-wrapper {
+    transform: translateY(-2px);
+    filter: drop-shadow(0 0 3px rgba(255, 159, 67, 0.6)) drop-shadow(0 10px 20px rgba(255, 159, 67, 0.3));
+}
+
+.dungeon-flag {
+    transition: background-color 0.3s ease;
+    clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);
+    padding: 12px 16px 12px 24px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    border-radius: 0 10px 10px 0;
+}
+
+.dungeon-timeline-hz {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin-top: 15px;
+}
+
+.dungeon-timeline-hz::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background-color: #ffcc80;
+    border-radius: 2px;
+    z-index: 0;
+}
+
+.timeline-item-hz {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.timeline-level-hz {
+    font-size: 16px;
+    font-weight: 900;
+    color: #e67e22;
+    letter-spacing: 1px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.dungeon-flag-hz {
+    clip-path: polygon(50% 0, 100% 15px, 100% 100%, 0 100%, 0 15px);
+    background: #ffffff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 28px;
+    padding-bottom: 15px;
+    border-radius: 0 0 16px 16px;
+}
+
+.flag-text-hz {
+    font-size: 18px;
+    font-weight: 900;
+    color: #2d3436;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    letter-spacing: 4px;
+    transition: color 0.3s ease;
+}
+
+.timeline-item-hz:hover .flag-text-hz {
+    color: #e67e22;
+}
+
+@media (max-width: 768px) {
+    .dungeon-timeline-hz {
+        overflow-x: auto;
+        padding-bottom: 15px;
+    }
+
+    .timeline-item-hz {
+        min-width: 85px;
+    }
+}
+
+.timeline-item:hover .dungeon-flag,
+.timeline-item.active .dungeon-flag {
+    background-color: #fff9eb;
+}
+
+.go-btn {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-8px);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    margin-left: auto;
+    margin-right: -8px;
+    background: linear-gradient(135deg, #ff9f43, #feca57);
+    color: white !important;
+    padding: 4px 12px;
+    border-radius: 18px;
+    font-size: 12px;
+    font-weight: 900;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(255, 159, 67, 0.4);
+    letter-spacing: 1px;
+}
+
+.timeline-item:hover .go-btn {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+}
+
+.go-btn:hover {
+    filter: brightness(1.1);
+    transform: scale(1.05) !important;
+    box-shadow: 0 5px 12px rgba(255, 159, 67, 0.6);
+}
+
+.dungeon-flag-right {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
+    padding: 10px 20px 10px 12px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border-radius: 10px 0 0 10px;
+    color: #2c3e50;
+    font-weight: 900;
+    font-size: 14px;
+}
+
+.timeline-item-hz:hover .dungeon-flag-wrapper,
+.timeline-item-hz.active .dungeon-flag-wrapper {
+    filter: drop-shadow(0 0 3px rgba(255, 159, 67, 0.6)) drop-shadow(0 10px 20px rgba(255, 159, 67, 0.3));
+    transform: translateY(-2px);
+}
+
+.timeline-item-hz:hover .dungeon-flag-right,
+.timeline-item-hz.active .dungeon-flag-right {
+    background-color: #fff9eb;
+    color: #d35400;
+}
+
+.timeline-marker-hz {
+    width: 20px;
+    height: 20px;
+    background-color: #fff4e6;
+    border: 4px solid #ff9f43;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255, 159, 67, 0.4);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.timeline-item-hz:hover .timeline-marker-hz,
+.timeline-item-hz.active .timeline-marker-hz {
+    background-color: #ff9f43;
+    transform: scale(1.3);
+    box-shadow: 0 0 12px rgba(255, 159, 67, 0.6);
+}
+
+.text-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+.dungeon-timeline-full,
+.dungeon-timeline-full * {
+    cursor: auto !important;
+    list-style: none;
+    margin: 0;
+}
+
+.dungeon-timeline-full {
+    padding: 15px 0 15px 0;
+    position: relative;
+}
+
+.dungeon-timeline-full::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    bottom: 15px;
+    left: 30%;
+    transform: translateX(-50%);
+    width: 3px;
+    background-color: #ffcc80;
+    z-index: 1;
+}
+
+.dungeon-timeline-full .timeline-row {
+    position: relative;
+    z-index: 2;
+    padding-left: 0;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.dungeon-timeline-full .timeline-marker {
+    width: 28px;
+    height: 28px;
+    background-color: #ffffff;
+    border: 5px solid #f39c12;
+    border-radius: 50%;
+    position: absolute;
+    left: 30%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.4s ease;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+    z-index: 3;
+}
+
+.dungeon-timeline-full .timeline-row.active .timeline-marker {
+    background-color: #ff9f43;
+    border-color: #ff9f43;
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 0 12px rgba(255, 159, 67, 0.6);
+}
+
+.dungeon-timeline-full .timeline-left-panel {
+    flex: 0 0 30%;
+    padding-right: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.dungeon-timeline-full .timeline-left-panel img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 3px solid #fff;
+    box-shadow: 0 6px 20px rgba(255, 159, 67, 0.15);
+    background-color: #fffbf0;
+    transition: opacity 0.15s ease-in-out;
+}
+
+.dungeon-timeline-full .stage-legend {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 800;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 6px 12px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    border: 2px solid #fff;
+}
+
+.dungeon-timeline-full .stage-legend span {
+    cursor: default;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.dungeon-timeline-full .stage-legend span:hover {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}
+
+.dungeon-timeline-full .dungeon-flag-wrapper {
+    flex: 0 0 70%;
+    padding-left: 35px;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.05));
+    transition: all 0.4s ease;
+    cursor: auto !important;
+}
+
+.dungeon-timeline-full .timeline-row.active .dungeon-flag-wrapper {
+    filter: drop-shadow(0 0 2px #ff9f43) drop-shadow(0 0 1px #ff9f43) drop-shadow(0 8px 25px rgba(255, 159, 67, 0.25)) !important;
+    transform: translateX(6px) !important;
+}
+
+.dungeon-timeline-full .dungeon-flag-large {
+    clip-path: polygon(20px 0, 100% 0, 100% 100%, 20px 100%, 0 50%);
+    background: #ffffff;
+    padding: 15px 30px 15px 45px;
+    /* 縮減上下內距，交由 flex 置中 */
+    border-radius: 12px;
+    transition: all 0.4s ease;
+    position: relative;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* 核心：垂直置中所有內容 */
+    min-height: 100px;
+    /* 確保有足夠的空間感，不論幾行都好看 */
+}
+
+.dungeon-timeline-full .rule-list>li {
+    font-size: 13px !important;
+    line-height: 25px !important;
+    position: relative;
+    padding-left: 18px;
+}
+
+.dungeon-timeline-full .rule-list>li::before {
+    content: '•';
+    color: #ff9f43;
+    font-weight: bold;
+    font-size: 18px;
+    position: absolute;
+    left: 0;
+    top: 12.5px !important;
+    transform: translateY(-50%);
+    line-height: 1;
+}
+
+.dungeon-timeline-full .rule-list li {
+    background: none !important;
+}
+
+.pq-tree .node-label {
+    font-size: 13px !important;
+}
+
+.dungeon-timeline-full .stage-color-bar {
+    border-left: 5px solid #ff9f43;
+    padding-left: 15px;
+}
+
+.dungeon-timeline-full .stage-header {
+    color: #d35400;
+    margin-bottom: 18px;
+    /* 拉大與下方說明文字的間距 */
+    font-size: 22px;
+    /* 字體再大一號 (原本 21px) */
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    cursor: default !important;
+}
+
+.dungeon-timeline-full .stage-badge {
+    background: #ff9f43;
+    color: white;
+    font-size: 16px;
+    /* 徽章字體也同步再大一號 (原本 15px) */
+    padding: 3px 12px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    cursor: default !important;
+}
+
+.dungeon-timeline-full .stage-title {
+    color: #d35400;
+    cursor: default !important;
+}
+
+.dungeon-timeline-full .info-box {
+    margin-top: 25px;
+    padding: 20px;
+    background: rgba(255, 159, 67, 0.05);
+    border-radius: 12px;
+}
+
+.dungeon-timeline-full .info-box-title {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.dungeon-timeline-full .qa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 12px;
+}
+
+.dungeon-timeline-full .qa-grid-item {
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #f1f2f6;
+    font-size: 13px;
+}
+
+.dungeon-timeline-full .qa-badge {
+    font-size: 12px;
+    margin: 0;
+    padding: 2px 6px;
+    cursor: default !important;
+}
+
+.dungeon-timeline-full .password-btn {
+    border: 1px solid #ff9f43;
+    color: #d35400;
+    background: white;
+    margin: 0;
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 5px;
+    cursor: default !important;
+    display: inline-block;
+    font-weight: 700;
+}
+
+.npc-hover {
+    color: #27ae60;
+    font-weight: 900;
+    background: rgba(39, 174, 96, 0.1);
+    padding: 0px 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid rgba(39, 174, 96, 0.3);
+}
+
+.mob-hover {
+    color: #9b59b6;
+    font-weight: 900;
+    background: rgba(155, 89, 182, 0.1);
+    padding: 0px 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid rgba(155, 89, 182, 0.3);
+}
+
+.dungeon-nav {
+    text-align: center;
+    position: relative;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.dungeon-nav-inner {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.dungeon-nav-prev {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 12px;
+    white-space: nowrap;
+}
+
+.dungeon-nav-next {
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 12px;
+    white-space: nowrap;
+}
+
+.nav-center-btn {
+    display: inline-block;
+    padding: 10px 30px;
+    background: linear-gradient(135deg, #ff9f43, #feca57);
+    color: white;
+    font-weight: 900;
+    font-size: 14px;
+    border-radius: 25px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(255, 159, 67, 0.4);
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.nav-center-btn:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.nav-side-btn {
+    display: inline-block;
+    padding: 10px 22px;
+    background: white;
+    color: #ff9f43;
+    border: 2px solid #ff9f43;
+    font-weight: 900;
+    font-size: 14px;
+    border-radius: 25px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(255, 159, 67, 0.1);
+    transition: all 0.2s ease;
+}
+
+.nav-side-btn:hover {
+    background: #ff9f43;
+    color: white;
+    transform: scale(1.05);
+}
+
+.dungeon-info-header {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 40px;
+    align-items: stretch;
+}
+
+.dungeon-info-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dungeon-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 8px;
+    margin: 4px 0 10px 0;
+}
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    padding: 6px 4px;
+    border-radius: 8px;
+    border: 1px solid #f0e6d6;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    min-width: 0;
+}
+.stat-box .stat-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: #95a5a6;
+    letter-spacing: 0px;
+    margin-bottom: 2px;
+}
+.stat-box .stat-value {
+    font-size: 14px;
+    font-weight: 900;
+    color: #e67e22;
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+}
+
+.dungeon-reward-box {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #dcdde1;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    flex: 1;
+    min-height: 280px;
+}
+
+.dungeon-reward-header {
+    background: #f368a2;
+    color: white;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.reward-table-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.reward-subheaders {
+    display: grid;
+    grid-template-columns: 1.05fr 1.4fr 1.05fr;
+    border-bottom: none;
+}
+
+.reward-col-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #95a5a6;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.reward-col-title:not(:last-child) {
+    border-right: 1px solid #dcdde1;
+}
+
+.reward-col {
+    padding: 10px 8px 12px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+}
+
+.reward-col:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 5%;
+    height: 90%;
+    width: 1px;
+    background-color: #dcdde1;
+}
+
+.reward-col-sub {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.reward-sub-label {
+    font-size: 11px;
+    font-weight: 800;
+    color: #8395a7;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    padding: 6px 0;
+    background: #f6f8fa;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #eeeff1;
+}
+
+.reward-tip-text {
+    width: 100%;
+    text-align: center;
+    color: #c0392b;
+    font-size: 11px;
+    font-weight: 800;
+    margin: 5px 0 10px 0;
+    letter-spacing: 1px;
+}
+
+.reward-content-row {
+    display: grid;
+    grid-template-columns: 0.95fr 1.1fr 0.95fr;
+    flex: 1;
+    width: 100%;
+}
+
+.reward-items-wrapper {
+    display: grid;
+    column-gap: 5px;
+    row-gap: 10px;
+    align-items: center;
+    justify-items: stretch;
+    width: fit-content;
+    margin: 0 auto 20px auto;
+}
+
+.reward-col:nth-child(2) .reward-items-wrapper {
+    grid-template-columns: minmax(max-content, auto) auto minmax(max-content, auto);
+    column-gap: 5px;
+}
+
+.reward-col:nth-child(1) .reward-items-wrapper,
+.reward-col:nth-child(3) .reward-col-sub:nth-child(1) .reward-items-wrapper {
+    grid-template-columns: auto minmax(max-content, auto);
+}
+
+.reward-col:nth-child(3) .reward-col-sub:nth-child(2) .reward-items-wrapper {
+    grid-template-columns: minmax(max-content, auto) auto;
+}
+
+.reward-item-row,
+.reward-item-row-double,
+.reward-item-row-triple {
+    display: contents;
+}
+
+.reward-item-right,
+.reward-item-coin-badge {
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    border-radius: 5px;
+    padding: 2px 8px;
+    width: 100%;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    letter-spacing: 0px;
+    min-width: unset;
+    height: 24px;
+}
+
+.reward-item-right {
+    color: #0984e3;
+    background-color: #ebf7ff;
+    border: 1px solid #add8e6;
+}
+
+.reward-item-coin-badge {
+    color: #e67e22;
+    background-color: #fff5eb;
+    border: 1px solid #ffd8b1;
+}
+
+.item-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    white-space: nowrap;
+}
+
+.reward-table-body .text-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+
+.reward-col:nth-child(2) .item-cost {
+    grid-column: 1;
+    justify-self: stretch;
+}
+
+.reward-col:nth-child(2) .item-info {
+    grid-column: 2;
+    justify-self: start;
+}
+
+.reward-col:nth-child(2) .item-value {
+    grid-column: 3;
+    justify-self: end;
+}
+
+.reward-col:nth-child(3) .reward-col-sub:nth-child(2) .item-cost {
+    grid-column: 1;
+    justify-self: stretch;
+}
+
+.reward-table-body .item-text,
+.reward-table-body .item-text-bold {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 800;
+    color: #2c3e50;
+    letter-spacing: 0.5px;
+    min-height: 24px;
+}
+
+.reward-item-note {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8395a7;
+    margin-top: 2px;
+    text-align: center;
+    grid-column: 1 / -1;
+}
+
+.dungeon-info-right {
+    flex: 0 0 30%;
+    background-color: #fffbf0;
+    border-radius: 16px;
+    border: 3px solid #fff;
+    box-shadow: 0 6px 20px rgba(255, 159, 67, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 15px 15px 12px 15px;
+}
+
+.dungeon-npc-img {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-8px);
+}
+
+.dungeon-npc-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.1));
+}
+
+.dungeon-location-badge {
+    margin-top: 4px;
+    font-weight: 900;
+    color: #e67e22;
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: 1px;
+    background: rgba(255, 159, 67, 0.1);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 159, 67, 0.3);
+    width: 95%;
+}
+
+.item-text {
+    color: #0984e3;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.item-text-bold {
+    color: #2c3e50;
+    font-weight: 800;
+    display: inline-block;
+    font-size: 13px;
+}
+
+.tip-text {
+    color: #c0392b;
+    font-weight: bold;
+}
+
+.stage-caption {
+    color: #ff9f43;
+    font-size: 14px;
+    transition: opacity 0.15s ease-in-out;
+}
+
+.forum-main-card-warm {
+    background-color: #fff4e6;
+    padding: 30px;
+}

@@ -1,0 +1,84 @@
+---
+layout: layout.njk
+title: 羅密歐與茱麗葉
+---
+{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav %}
+
+<div class="forum-banner">
+    <div class="forum-banner-content">
+        <h1>羅密歐與茱麗葉</h1>
+    </div>
+</div>
+
+<div class="forum-main-card forum-main-card-warm">
+    
+    {{ dungeonHeader('７０等 ↑', '４～６人', '１８００００', [{name: '組隊硬幣', value: '1 個'}], '羅密歐與茱麗葉', '瑪迦提亞城:蒙特鳩祕密之室') }}
+
+    <ul class="dungeon-timeline-full">
+        {% call() stageRow(1, '可疑的研究室', '羅密歐與茱麗葉') %}
+        <ul class="rule-list">
+            <li>地圖上藏有很多堆疊的書本，當滑鼠指標滑過可點選的地方時，指標會浮出滑鼠圖形。</li>
+            <li>點擊到藏有開關的書本，即可開啟通往下一階段的傳送門。</li>
+            <li><span class="tip-text">💡 完美結局條件：書本中可能找到 {{ item('羅密歐的信件') }}，請在特殊實驗室轉交給 {{ npc('羅密歐NPC', '羅密歐與茱麗葉/羅密歐NPC.png', 1) }}。</span></li>
+        </ul>
+        {% endcall %}
+
+        {% call() stageRow(2, '漆黑通道', '羅密歐與茱麗葉') %}
+        <ul class="rule-list">
+            <li>將會進入烏漆麻黑的地圖，只有角色周圍可見到一點點視線。</li>
+            <li>在黑暗中把地圖上所有怪物通通消滅，即可開啟通往下一階段的傳送門。</li>
+        </ul>
+        {% endcall %}
+
+        {% call() stageRow(3, '令人不適的實驗室', '羅密歐與茱麗葉') %}
+        <ul class="rule-list">
+            <li>地圖上所有怪物皆會掉落 {{ item('可疑液體') }}，玩家們必須撿拾可疑液體，並且 1 次只能撿 1 個。</li>
+            <li>將 {{ item('可疑液體') }} 丟到 平台上的破洞燒杯前，等待數秒後將會自動補進燒杯內。</li>
+            <li>若兩次丟的時間太近，可能會補不進燒杯，請再重新丟即可，每個需要補 7 次。</li>
+            <li>共有 3 個破洞燒杯，若丟太慢會倒流出來，全部填滿後即可開啟通往下一階段的傳送門。</li>
+        </ul>
+        {% endcall %}
+
+        {% call() stageRow(4, '特殊實驗室', '羅密歐與茱麗葉') %}
+        <ul class="rule-list">
+            <li><span class="tip-text">💡 完美結局條件：將 {{ item('羅密歐的信件') }} 轉交給 {{ npc('羅密歐NPC', '羅密歐與茱麗葉/羅密歐NPC.png', 4) }}。</span></li>
+            <li>地圖上左右兩側各有一扇上鎖的門，需透過 {{ item('門禁卡') }} 才能開啟。</li>
+            <li>所有怪物皆會掉落 {{ item('門禁卡') }}，撿取後丟在門前等待數秒後即可進入漆黑的研究室。</li>
+            <li>兩個研究室內的地圖 <span style="color: #c0392b;"><strong>最左上方箱子</strong></span> 皆藏有研究資料，使用普攻擊破箱子即可獲得。</li>
+            <li>左邊研究室 <strong>需要跳躍力120%</strong>  才可穿越滾輪，擊破箱子可獲得 {{ item('卡帕萊特的實驗資料') }}。</li>
+            <li>右邊研究室 <strong>需要技能:瞬間移動</strong> 才可穿越牆壁，擊破箱子可獲得 {{ item('蒙特鳩的實驗資料') }}。</li>
+            <li>回到特殊實驗室之後，請將兩種實驗資料轉交給隊長，提交給 {{ npc('羅密歐NPC', '羅密歐與茱麗葉/羅密歐NPC.png', 4) }} 後即可通關。</li>
+            <li>請從 {{ mob('中間的門', '羅密歐與茱麗葉/中間的門.png', 4) }} 進入前往下一關。</li>
+        </ul>
+        {% endcall %}
+
+        {% call() stageRow(5, '猶利塔的辦公室', '羅密歐與茱麗葉') %}
+        <ul class="rule-list">
+            <li><span class="tip-text">💡 完美結局條件：所有人請勿往前，隊長先與 {{ npc('猶利塔NPC', '羅密歐與茱麗葉/猶利塔NPC.png', 5) }} 對話，出現「猶利塔在自言自語」後才可前進。</span></li>
+            <li>前進之後會召喚怪物，清除所有怪物後，找尋地圖上的開關。</li>
+            <li>地圖上藏有很多堆疊的書本，當滑鼠指標滑過可點選的地方時，指標會浮出滑鼠圖形。</li>
+            <li>點擊到藏有開關的書本，即可開啟通往下一階段的傳送門。</li>
+        </ul>
+        {% endcall %}
+
+        {% call() stageRow(6, '研究室走廊', '羅密歐與茱麗葉') %}
+        <ul class="rule-list">
+            <li>地圖上共有 4 個房間，每個房間僅能進入 1 位玩家。</li>
+            <li>每個房間裡皆有 10 層，每層有 4 個小平台，找出正確的平台才能往上傳一層。</li>
+            <li>房間內的平台互有關聯，請將自己房間的正確平台報給隊友，每一層的正確平台絕對不會與別的房間重複。</li>
+            <li>若第一間房間的第一層正確平台是 3 ，那麼第二間的第一層正確平台一定就是 1、2、4 其中一個。</li>
+            <li>等待 4 位玩家皆達到最上層後，即可進入傳送點通往下一階段。</li>
+        </ul>
+        {% endcall %}
+
+        {% call() stageRow(7, '中央研究室', '羅密歐與茱麗葉') %}
+        <ul class="rule-list">
+            <li>擊敗最終 BOSS 後，與 {{ npc('羅密歐NPC', '羅密歐與茱麗葉/羅密歐NPC.png', 7) }} 對話即可通關。</li>
+            <li>若完美結局條件皆有達成，將會召喚更強大的 <strong>狂暴弗蘭肯洛伊德</strong>，並且通關後獲得的經驗值將會多 <strong>30000 點</strong>。</li>
+        </ul>
+        {% endcall %}
+    </ul>
+    
+    {{ dungeonNav('組隊', '金勾海賊王', '') }}
+
+</div>

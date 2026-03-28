@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site.name }}{% if title %}｜{{ title }}{% endif %}</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/dungeons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        window.globalImageErrorFallback = function(img) {
+            if (!img.dataset.triedGif) {
+                img.dataset.triedGif = 'true';
+                img.src = img.src.replace(/\.(png|jpg|jpeg|webp)$/i, '.gif');
+            } else if (!img.dataset.triedJpg) {
+                img.dataset.triedJpg = 'true';
+                img.src = img.src.replace(/\.(png|gif|jpeg|webp)$/i, '.jpg');
+            } else {
+                img.onerror = null;
+                img.src = 'https://placehold.co/600x450/fff4e6/ff9f43?text=NO+IMAGE&font=Oswald';
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="server-header">
+                <span>【 {{ site.name }}資訊 】</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="channel-list">
+
+                <details class="channel-group main-group" id="group-server" {% if page.url and (page.url == '/基礎設置/' or page.url == '/遊戲規章/') %}open{% endif %}>
+                    <summary class="channel-item category-header">
+                        <span class="channel-name">⚙️《 {{ site.name }}相關 》</span>
+                    </summary>
+                    <div class="sub-channel-container">
+                        <a href="/基礎設置/" class="channel-item sub-channel {% if page.url == '/基礎設置/' %}active{% endif %}">
+                            <span class="channel-name">　☆ 基礎設置</span>
+                        </a>
+                        <a href="/遊戲規章/" class="channel-item sub-channel {% if page.url == '/遊戲規章/' %}active{% endif %}">
+                            <span class="channel-name">　☆ 遊戲規章</span>
+                        </a>
+                    </div>
+                </details>
+
+                <details class="channel-group main-group" id="group-features" {% if page.url and ('/主題副本/' in page.url or '/組隊副本/' in page.url) %}open{% endif %}>
+                    <summary class="channel-item category-header">
+                        <span class="channel-name">🌟《 {{ site.name }}特色 》</span>
+                    </summary>
+                    <div class="sub-channel-container">
+
+                        <details class="channel-group feature-subgroup" id="subgroup-theme" {% if page.url and (page.url == '/主題副本/' or '/主題副本/' in page.url) %}open{% endif %}>
+                            <summary class="channel-item sub-channel {% if page.url == '/主題副本/' %}active{% endif %}" onclick="if(this.parentNode.open){event.preventDefault();} window.location.href='/主題副本/';" style="cursor: pointer;">
+                                <span class="channel-name">　★ 主題副本</span>
+                            </summary>
+                            <div class="sub-channel-container" style="padding-left: 8px;">
+                                <a href="/主題副本/菇菇王國/" class="channel-item sub-channel {% if page.url == '/主題副本/菇菇王國/' %}active{% endif %}">
+                                    <span class="channel-name">　　├ 菇菇王國</span>
+                                </a>
+                                <a href="/主題副本/里艾那海峽/" class="channel-item sub-channel {% if page.url == '/主題副本/里艾那海峽/' %}active{% endif %}">
+                                    <span class="channel-name">　　├ 里艾那海峽</span>
+                                </a>
+                                <a href="/主題副本/埃羅汀/" class="channel-item sub-channel {% if page.url == '/主題副本/埃羅汀/' %}active{% endif %}">
+                                    <span class="channel-name">　　├ 埃羅汀</span>
+                                </a>
+                                <a href="/主題副本/帕爾坦/" class="channel-item sub-channel {% if page.url == '/主題副本/帕爾坦/' %}active{% endif %}">
+                                    <span class="channel-name">　　├ 帕爾坦</span>
+                                </a>
+                                <a href="/主題副本/克里提亞斯/" class="channel-item sub-channel {% if page.url == '/主題副本/克里提亞斯/' %}active{% endif %}">
+                                    <span class="channel-name">　　└ 克里提亞斯</span>
+                                </a>
+                            </div>
+                        </details>
+
+                        <details class="channel-group feature-subgroup" id="subgroup-party" {% if page.url and (page.url == '/組隊副本/' or '/組隊副本/' in page.url) %}open{% endif %}>
+                            <summary class="channel-item sub-channel {% if page.url == '/組隊副本/' %}active{% endif %}" onclick="if(this.parentNode.open){event.preventDefault();} window.location.href='/組隊副本/';" style="cursor: pointer;">
+                                <span class="channel-name">　★ 組隊副本</span>
+                            </summary>
+                            <div class="sub-channel-container" style="padding-left: 8px;">
+                                <a href="/組隊副本/第一次同行/" class="channel-item sub-channel {% if page.url == '/組隊副本/第一次同行/' %}active{% endif %}">
+                                    <span class="channel-name">　　├ 第一次同行</span>
+                                </a>
+                                <a href="/組隊副本/時空的裂縫/" class="channel-item sub-channel {% if page.url == '/組隊副本/時空的裂縫/' %}active{% endif %}">
+                                    <span class="channel-name">　　├ 時空的裂縫</span>
+                                </a>
+                                <a href="/組隊副本/毒霧森林/" class="channel-item sub-channel {% if page.url == '/組隊副本/毒霧森林/' %}active{% endif %}">
+                                    <span class="channel-name">　　├ 毒霧森林</span>
+                                </a>
+                                <a href="/組隊副本/女神的痕跡/" class="channel-item sub-channel {% if page.url == '/組隊副本/女神的痕跡/' %}active{% endif %}">
+                                    <span class="channel-name">　　├ 女神的痕跡</span>
+                                </a>
+                                <a href="/組隊副本/金勾海賊王/" class="channel-item sub-channel {% if page.url == '/組隊副本/金勾海賊王/' %}active{% endif %}">
+                                    <span class="channel-name">　　├ 金勾海賊王</span>
+                                </a>
+                                <a href="/組隊副本/羅密歐與茱麗葉/" class="channel-item sub-channel {% if page.url == '/組隊副本/羅密歐與茱麗葉/' %}active{% endif %}">
+                                    <span class="channel-name">　　└ 羅密歐與茱麗葉</span>
+                                </a>
+                            </div>
+                        </details>
+                    </div>
+                </details>
+
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="page-section active">
+                {{ content | safe }}
+            </div>
+        </main>
+    </div>
+
+    <script src="/js/dungeon-interact.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const allDetails = document.querySelectorAll('details');
+
+            document.querySelectorAll('details.main-group, details.feature-subgroup').forEach(detail => {
+                detail.addEventListener('mouseenter', () => {
+                    detail.setAttribute('open', '');
+                });
+                detail.addEventListener('mouseleave', () => {
+                    if (!detail.querySelector('.active')) {
+                        detail.removeAttribute('open');
+                        if (detail.id) {
+                            localStorage.setItem('details_state_' + detail.id, 'closed');
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('summary').forEach(summary => {
+                summary.addEventListener('click', (e) => {
+                    const detail = summary.parentElement;
+                    if (detail.open && detail.querySelector('.active')) {
+                        e.preventDefault();
+                    }
+                });
+            });
+
+            allDetails.forEach(detail => {
+                if (detail.id) {
+                    const hasActiveChild = detail.querySelector('.active');
+                    if (hasActiveChild) {
+                        detail.setAttribute('open', '');
+                        localStorage.setItem('details_state_' + detail.id, 'open');
+                    } else {
+                        if (detail.classList.contains('feature-subgroup')) {
+                            detail.removeAttribute('open');
+                            localStorage.setItem('details_state_' + detail.id, 'closed');
+                        } else {
+                            const savedState = localStorage.getItem('details_state_' + detail.id);
+                            if (savedState === 'open') {
+                                detail.setAttribute('open', '');
+                            } else if (savedState === 'closed') {
+                                detail.removeAttribute('open');
+                            }
+                        }
+                    }
+                }
+
+                if (detail.id) {
+                    detail.addEventListener('toggle', () => {
+                        if (detail.open) {
+                            localStorage.setItem('details_state_' + detail.id, 'open');
+
+                            if (detail.classList.contains('main-group')) {
+                                document.querySelectorAll('details.main-group').forEach(sibling => {
+                                    if (sibling !== detail && sibling.open && !sibling.querySelector('.active')) {
+                                        sibling.removeAttribute('open');
+                                        if (sibling.id) {
+                                            localStorage.setItem('details_state_' + sibling.id, 'closed');
+                                        }
+                                    }
+                                });
+                            }
+
+                            if (detail.classList.contains('feature-subgroup')) {
+                                document.querySelectorAll('details.feature-subgroup').forEach(sibling => {
+                                    if (sibling !== detail && sibling.open && !sibling.querySelector('.active')) {
+                                        sibling.removeAttribute('open');
+                                        if (sibling.id) {
+                                            localStorage.setItem('details_state_' + sibling.id, 'closed');
+                                        }
+                                    }
+                                });
+                            }
+
+                        } else {
+                            if (detail.querySelector('.active')) {
+                                detail.setAttribute('open', '');
+                                localStorage.setItem('details_state_' + detail.id, 'open');
+                            } else {
+                                localStorage.setItem('details_state_' + detail.id, 'closed');
+                            }
+                        }
+                    });
+                }
+            });
+
+            document.querySelectorAll('details.main-group').forEach(detail => {
+                if (detail.querySelector('.active')) {
+                    document.querySelectorAll('details.main-group').forEach(sibling => {
+                        if (sibling !== detail && !sibling.querySelector('.active')) {
+                            sibling.removeAttribute('open');
+                            if (sibling.id) localStorage.setItem('details_state_' + sibling.id, 'closed');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script>
+        setInterval(() => {
+            const stageImages = document.querySelectorAll('.timeline-left-panel img');
+
+            stageImages.forEach(img => {
+                const isGif = img.src.toLowerCase().includes('.gif');
+                const row = img.closest('.timeline-row');
+                const isActive = row && row.classList.contains('active');
+
+                if (isGif && img.complete && img.naturalWidth > 0 && isActive && !img.__gifStaticParsed) {
+                    try {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.naturalWidth || 600;
+                        canvas.height = img.naturalHeight || 450;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                        const pixel = ctx.getImageData(canvas.width/2, canvas.height/2, 1, 1).data;
+                        if (pixel[3] > 0) {
+                            img.__gifAnimSrc = img.src;
+                            img.__gifStaticSrc = canvas.toDataURL('image/png');
+                            img.__gifStaticParsed = true;
+                        }
+                    } catch (err) {
+                        console.error("Canvas draw failed: ", err);
+                    }
+                }
+
+                if (img.__gifStaticParsed && img.dataset.hovering !== 'true') {
+                    if (isActive) {
+                        if (img.src !== img.__gifAnimSrc) {
+                            img.src = img.__gifAnimSrc;
+                        }
+                    } else {
+                        if (img.src !== img.__gifStaticSrc) {
+                            img.src = img.__gifStaticSrc;
+                        }
+                    }
+                }
+            });
+        }, 300);
+    </script>
+</body>
+</html>
