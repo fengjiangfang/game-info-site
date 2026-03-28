@@ -126,15 +126,74 @@ function preloadAllDungeonImages() {
     });
 }
 
+const cn = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+
+function resetHoverImg(imgId) {
+    const img = document.getElementById(imgId);
+    if (!img) return;
+
+    img.dataset.hovering = 'false';
+    img.classList.add('loading');
+
+    // 立刻執行還原邏輯
+    refreshStageImage(img);
+
+    const num = imgId.split('-')[1];
+    const originalCaption = `第${cn[num]}階段`;
+    
+    const caption = document.getElementById(imgId + '-caption');
+    if (caption) {
+        caption.innerText = originalCaption;
+        // 移除內嵌樣式，讓它恢復到 CSS 定義的顏色
+        caption.style.color = ''; 
+        caption.style.fontWeight = '';
+    }
+    
+    setTimeout(() => {
+        img.classList.remove('loading');
+    }, 100);
+}
+
+// 更新單張階段圖片的顯示狀態
+function refreshStageImage(img) {
+    if (!img.__originalSrc) {
+        img.__originalSrc = img.src;
+    }
+    
+    if (img.dataset.hovering === 'true') return;
+
+    const row = img.closest('.timeline-row');
+    const isActive = row && row.classList.contains('active');
+
+    if (img.__gifStaticParsed) {
+        if (isActive) {
+            if (img.src !== img.__gifAnimSrc) img.src = img.__gifAnimSrc;
+        } else {
+            if (img.src !== img.__gifStaticSrc) img.src = img.__gifStaticSrc;
+        }
+    } else {
+        if (img.__originalSrc && img.src !== img.__originalSrc) {
+            img.src = img.__originalSrc;
+        }
+    }
+}
+
+// 記錄進入頁面時的原始來源
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.timeline-left-panel img').forEach(img => {
+        img.__originalSrc = img.src;
+        if (img.src.toLowerCase().includes('.gif')) {
+            refreshStageImage(img);
+        }
+    });
+});
+
 // 平滑切換圖片
 function setHoverImg(url, imgId, name, color) {
     const img = document.getElementById(imgId);
     if (!img) return;
 
-    // 標記正在懸停，防止被 GIF 暫動邏輯覆蓋
     img.dataset.hovering = 'true';
-
-    // 平滑過渡：先半透明
     img.classList.add('loading');
 
     const newImg = new Image();
@@ -147,77 +206,36 @@ function setHoverImg(url, imgId, name, color) {
     const caption = document.getElementById(imgId + '-caption');
     if (caption) {
         caption.innerText = name;
-        caption.style.color = color; // 只改文字顏色
-        caption.style.fontWeight = '900'; // 加粗文字以突顯
+        caption.style.color = color;
+        caption.style.fontWeight = '900';
     }
 }
 
-function resetHoverImg(imgId) {
-    const img = document.getElementById(imgId);
-    if (!img) return;
-
-    img.dataset.hovering = 'false';
-    img.classList.add('loading');
-
-    const num = imgId.split('-')[1];
-    const originalCaption = `第${cn[num]}階段`;
-
-    const caption = document.getElementById(imgId + '-caption');
-    if (caption) {
-        caption.innerText = originalCaption;
-        caption.style.color = color; // 恢復白色文字
-        caption.style.fontWeight = '700';
-    }
-
-    // 延時一點點恢復，配合 CSS transition
-    setTimeout(() => {
-        img.classList.remove('loading');
-    }, 50);
-}
-
-const cn = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
-
-// GIF 暫動處理邏輯
+// GIF 全域處理輪詢
 setInterval(() => {
     const stageImages = document.querySelectorAll('.timeline-left-panel img');
 
     stageImages.forEach(img => {
-        const isGif = img.src.toLowerCase().includes('.gif');
-        const row = img.closest('.timeline-row');
-        // 嚴格檢查進度條 (row) 是否處於 active 狀態
-        const isActive = row && row.classList.contains('active');
+        const originalPath = img.__originalSrc || img.src;
+        const isGif = originalPath.toLowerCase().includes('.gif');
 
         if (isGif && img.complete && img.naturalWidth > 0 && !img.__gifStaticParsed) {
             try {
                 const canvas = document.createElement('canvas');
-                canvas.width = img.naturalWidth || 600;
-                canvas.height = img.naturalHeight || 450;
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
                 const pixel = ctx.getImageData(canvas.width / 2, canvas.height / 2, 1, 1).data;
                 if (pixel[3] > 0) {
-                    img.__gifAnimSrc = img.src;
+                    img.__gifAnimSrc = originalPath;
                     img.__gifStaticSrc = canvas.toDataURL('image/png');
                     img.__gifStaticParsed = true;
                 }
-            } catch (err) {
-                // 忽略跨域問題
-            }
+            } catch (err) { }
         }
 
-        if (img.__gifStaticParsed && img.dataset.hovering !== 'true') {
-            if (isActive) {
-                // 當前階段：啟動動圖
-                if (img.src !== img.__gifAnimSrc) {
-                    img.src = img.__gifAnimSrc;
-                }
-            } else {
-                // 非當前階段：切換為靜照
-                if (img.src !== img.__gifStaticSrc) {
-                    img.src = img.__gifStaticSrc;
-                }
-            }
-        }
+        refreshStageImage(img);
     });
 }, 300);

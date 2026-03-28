@@ -34,16 +34,16 @@ title: 金勾海賊王
     }, '金勾海賊王', '靈藥幻境:海盜船境地') }}
 
     <ul class="dungeon-timeline-full">
-        {% call() stageRow(1, '前往海盜船之路', '金勾海賊王') %}
+        {% call() stageRow(1, '「前往海盜船之路」', '金勾海賊王') %}
         <ul class="rule-list">
             <li>清除地圖上所有怪物，即可通過傳點進入下一階段。</li>
         </ul>
         {% endcall %}
 
-        {% call() stageRow(2, '突破船首!', '金勾海賊王') %}
+        {% call() stageRow(2, '「突破船首!」', '金勾海賊王') %}
         <ul class="rule-list">
             <li>地圖上所有怪物擊殺後皆會掉落海賊的象徵。</li>
-            <li>由隊長與 {{ npc('邱翁NPC', '金勾海賊王/邱翁NPC.png', 2) }} 對話，提交三次指定的任務道具：</li>
+            <li>由隊長與 {{ npc('邱翁NPC', '金勾海賊王/邱翁NPC.png', 2, '#ff9f43') }} 對話，提交三次指定的任務道具：</li>
             <li>第一次 → {{ item('新手海賊的象徵') }} 20 個</li>
             <li>第二次 → {{ item('中級海賊的象徵') }} 20 個</li>
             <li>第三次 → {{ item('老手海賊的象徵') }} 20 個</li>
@@ -51,19 +51,19 @@ title: 金勾海賊王
         </ul>
         {% endcall %}
 
-        {% call() stageRow(3, '突破甲板 I', '金勾海賊王') %}
+        {% call() stageRow(3, '「突破甲板 I」', '金勾海賊王') %}
         <ul class="rule-list">
             <li>清除地圖上所有怪物，即可通過傳點進入下一階段。</li>
         </ul>
         {% endcall %}
 
-        {% call() stageRow(4, '突破甲板 II', '金勾海賊王') %}
+        {% call() stageRow(4, '「突破甲板 II」', '金勾海賊王') %}
         <ul class="rule-list">
             <li>清除地圖上所有怪物，即可通過傳點進入下一階段。</li>
         </ul>
         {% endcall %}
 
-        {% call() stageRow(5, '打倒海賊!', '金勾海賊王') %}
+        {% call() stageRow(5, '「打倒海賊!」', '金勾海賊王') %}
         <ul class="rule-list">
             <li>地圖上所有怪物擊殺後皆會掉落 {{ item('老舊的鐵鑰匙') }}</li>
             <li>將 {{ item('老舊的鐵鑰匙') }} 放置在中間的四扇門前，等待數秒後即可讓門關上。</li>
@@ -71,9 +71,9 @@ title: 金勾海賊王
         </ul>
         {% endcall %}
 
-        {% call() stageRow(6, '海賊王的最後', '金勾海賊王') %}
+        {% call() stageRow(6, '「海賊王的最後」', '金勾海賊王') %}
         <ul class="rule-list">
-            <li>擊敗最終 BOSS 後，與 {{ npc('邱翁NPC', '金勾海賊王/邱翁NPC.png', 6) }} 對話即可通關。</li>
+            <li>擊敗最終 BOSS 後，與 {{ npc('邱翁NPC', '金勾海賊王/邱翁NPC.png', 6, '#ff9f43') }} 對話即可通關。</li>
         </ul>
         {% endcall %}
     </ul>
