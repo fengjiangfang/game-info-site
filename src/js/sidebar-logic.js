@@ -165,7 +165,7 @@ function resetHoverImg(imgId) {
     const caption = document.getElementById(imgId + '-caption');
     if (caption) {
         caption.innerText = originalCaption;
-        caption.style.color = 'color; // 恢復白色文字
+        caption.style.color = color; // 恢復白色文字
         caption.style.fontWeight = '700';
     }
 
