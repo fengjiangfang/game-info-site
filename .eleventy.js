@@ -13,8 +13,8 @@ module.exports = function(eleventyConfig) {
             input: "src",
             output: "dist"
         },
-        // 本地開發使用根目錄 /，部署 GitHub Pages 使用子目錄前綴
-        pathPrefix: isLocalServer ? "/" : "/game-info-site/",
+        // 確保線上部署與本地端在不同路徑下運作
+        pathPrefix: process.env.GITHUB_PAGES ? "/game-info-site/" : "/",
         templateFormats: ["njk", "md", "html"],
         htmlTemplateEngine: "njk",
         markdownTemplateEngine: "njk"
