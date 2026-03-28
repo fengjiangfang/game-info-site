@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ site.name }}{% if title %}｜{{ title }}{% endif %}</title>
-    {# 動態判斷路徑前綴：GitHub Pages 使用 /game-info-site/，本地開發使用 / #}
-    {% set pathPrefix = "/game-info-site/" if not pkg else "/" %}
-    <link rel="stylesheet" href="{{ pathPrefix }}style.css">
-    <link rel="stylesheet" href="{{ pathPrefix }}css/dungeons.css">
+    {# 根據環境生成正確的 Base URL #}
+    {% set baseUrl = "/game-info-site/" if not pkg else "/" %}
+    <base href="{{ baseUrl }}">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/dungeons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         window.globalImageErrorFallback = function(img) {
@@ -26,7 +28,9 @@
 </head>
 <body>
     {% macro navLink(url, label, prefix='　　├ ') %}
-        <a href="{{ url | url }}" class="channel-item sub-channel {% if page.url == url %}active{% endif %}">
+        {% set fullUrl = url.replace('/', '') %}
+        {# 移除起始斜槓，讓其配合 <base> 標籤運作 #}
+        <a href="{{ fullUrl }}" class="channel-item sub-channel {% if page.url == url %}active{% endif %}">
             <span class="channel-name">{{ prefix }}{{ label }}</span>
         </a>
     {% endmacro %}
@@ -98,7 +102,7 @@
         </main>
     </div>
 
-    <script src="{{ pathPrefix }}js/dungeon-interact.js"></script>
-    <script src="{{ pathPrefix }}js/sidebar-logic.js"></script>
+    <script src="js/dungeon-interact.js"></script>
+    <script src="js/sidebar-logic.js"></script>
 </body>
 </html>
