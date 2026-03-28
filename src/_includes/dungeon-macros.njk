@@ -84,7 +84,7 @@
 
     <div class="dungeon-info-right">
         <div class="dungeon-npc-img">
-            <img src="{{ ('/images/' + type + '/' + dungeon + '/入場NPC.png') | url }}" onerror="window.globalImageErrorFallback(this)">
+            <img src="{{ ('/images/' + type + '/' + dungeon + '/入場NPC.webp') | url }}" onerror="window.globalImageErrorFallback(this)">
         </div>
         <div class="dungeon-stat-grid">
             <div class="stat-box"><span class="stat-label">等級限定</span><span class="stat-value">{{ level }}</span></div>
@@ -98,20 +98,22 @@
 </div>
 {% endmacro %}
 
-{% macro stageRow(num, title, dungeon, ext='gif', type='組隊副本') %}
+{% macro stageRow(stageNum, title, dungeon) %}
 <li class="timeline-row">
     <div class="timeline-marker"></div>
     <div class="timeline-left-panel">
-        <img src="{{ ('/images/' + type + '/' + dungeon + '/第' + cn[num] + '階段.' + ext) | url }}" id="stage-{{ num }}-img" onerror="window.globalImageErrorFallback(this)">
-        <div class="stage-legend">
-            <span id="stage-{{ num }}-img-caption" class="stage-caption">第{{ cn[num] }}階段</span>
-        </div>
+        <img id="stage-{{ stageNum }}-img" 
+             src="{{ ('/images/組隊副本/' + dungeon + '/第' + stageNum + '階段.webp') | url }}" 
+             alt="第{{ stageNum }}階段"
+             class="stage-preview-img"
+             onerror="window.globalImageErrorFallback(this)">
+        <div class="stage-caption" id="stage-{{ stageNum }}-img-caption">第{{ stageNum }}階段</div>
     </div>
     <div class="dungeon-flag-wrapper">
         <div class="dungeon-flag-large">
             <div class="stage-color-bar">
                 <h3 class="stage-header">
-                    <span class="stage-badge">第{{ cn[num] }}階段</span>
+                    <span class="stage-badge">第{{ stageNum }}階段</span>
                     <span class="stage-title">{{ title | safe }}</span>
                 </h3>
                 {{ caller() }}
@@ -121,20 +123,24 @@
 </li>
 {% endmacro %}
 
-{% macro npc(name, img, stage, type='組隊副本') %}
-<strong class="npc-hover" onmouseover="setHoverImg('{{ ('/images/' + type + '/' + img) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '#27ae60')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
+{% macro npc(name, src, stageNum, color) -%}
+<span class="npc-hover" 
+      onmouseover="setHoverImg('{{ ('/images/' + src.replace(/\.(png|gif|jpg|jpeg)$/i, '.webp')) | url }}', 'stage-{{ stageNum }}-img', '{{ name }}', '{{ color }}')" 
+      onmouseout="resetHoverImg('stage-{{ stageNum }}-img')">{{ name }}</span>
 {%- endmacro %}
 
-{% macro mob(name, img, stage, type='組隊副本') %}
-<strong class="mob-hover" onmouseover="setHoverImg('{{ ('/images/' + type + '/' + img) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '#9b59b6')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
+{% macro mob(name, src, stageNum) -%}
+<span class="mob-hover" 
+      onmouseover="setHoverImg('{{ ('/images/' + src.replace(/\.(png|gif|jpg|jpeg)$/i, '.webp')) | url }}', 'stage-{{ stageNum }}-img', '{{ name }}', '#c0392b')" 
+      onmouseout="resetHoverImg('stage-{{ stageNum }}-img')">{{ name }}</span>
 {%- endmacro %}
 
 {% macro item(name) -%}
-<span class="item-text"><img src="{{ ('/images/icon/' + name + '.png') | url }}" class="text-icon">{{ name }}</span>
+<span class="item-text"><img src="{{ ('/images/icon/' + name + '.webp') | url }}" class="text-icon" onerror="window.globalImageErrorFallback(this)">{{ name }}</span>
 {%- endmacro %}
 
 {% macro itemBold(name) -%}
-<span class="item-text-bold"><img src="{{ ('/images/icon/' + name + '.png') | url }}" class="text-icon">{{ name }}</span>
+<span class="item-text-bold"><img src="{{ ('/images/icon/' + name + '.webp') | url }}" class="text-icon" onerror="window.globalImageErrorFallback(this)">{{ name }}</span>
 {%- endmacro %}
 
 {% macro dungeonNav(type, prev, next) %}
