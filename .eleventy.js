@@ -1,23 +1,22 @@
 module.exports = function(eleventyConfig) {
-    // 配置複製靜態資源
+    // 資源複製
     eleventyConfig.addPassthroughCopy("src/images");
-    eleventyConfig.addPassthroughCopy("src/css");
     eleventyConfig.addPassthroughCopy("src/js");
-    eleventyConfig.addPassthroughCopy("src/style.css");
+    eleventyConfig.addPassthroughCopy("src/css");
 
-    // 修改：強制使用動態判斷，確保本地 8080 正常且 GitHub 正常
-    // 在 Eleventy 3.x 中，開發模式的運行模式是 'serve'
-    const isServe = process.env.ELEVENTY_RUN_MODE === 'serve';
-    const pathPrefix = isServe ? "/" : "/game-info-site/";
+    // 配置
+    // 偵測是否為本地開發伺服器模式
+    const isLocalServer = process.argv.includes('--serve');
 
     return {
         dir: {
             input: "src",
             output: "dist"
         },
-        pathPrefix: pathPrefix,
-        markdownTemplateEngine: "njk",
+        // 本地開發使用根目錄 /，部署 GitHub Pages 使用子目錄前綴
+        pathPrefix: isLocalServer ? "/" : "/game-info-site/",
+        templateFormats: ["njk", "md", "html"],
         htmlTemplateEngine: "njk",
-        dataTemplateEngine: "njk"
+        markdownTemplateEngine: "njk"
     };
 };

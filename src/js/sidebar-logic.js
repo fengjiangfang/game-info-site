@@ -1,73 +1,4 @@
-// 圖片預載緩存池
-const imageCache = {};
-
-// 預載函數：給予路徑，預先加載到記憶體
-function preloadImage(url) {
-    if (!url || imageCache[url]) return;
-    const img = new Image();
-    img.src = url;
-    imageCache[url] = img;
-}
-
-// 懸停切換函數：滑鼠碰觸時觸發
-window.setHoverImg = function(imgUrl, targetId, title, color) {
-    const targetImg = document.getElementById(targetId);
-    if (!targetImg) return;
-
-    if (!targetImg._originalSrc) {
-        targetImg._originalSrc = targetImg.src;
-    }
-
-    targetImg.dataset.hovering = 'true';
-    targetImg.src = imgUrl;
-
-    const captionId = targetId + '-caption';
-    const caption = document.getElementById(captionId);
-    if (caption) {
-        caption.innerText = title;
-        caption.style.color = color;
-        caption.style.fontWeight = '900';
-    }
-};
-
-// 還原函數：滑鼠離開時觸發
-window.resetHoverImg = function(targetId) {
-    const targetImg = document.getElementById(targetId);
-    if (!targetImg) return;
-
-    if (targetImg._originalSrc) {
-        targetImg.src = targetImg._originalSrc;
-    }
-
-    targetImg.dataset.hovering = 'false';
-
-    const captionId = targetId + '-caption';
-    const caption = document.getElementById(captionId);
-    if (caption) {
-        const row = targetImg.closest('.timeline-row');
-        const badge = row ? row.querySelector('.stage-badge') : null;
-        caption.innerText = badge ? badge.innerText : '第x階段';
-        caption.style.color = '';
-        caption.style.fontWeight = '';
-    }
-};
-
 document.addEventListener('DOMContentLoaded', () => {
-    // 智慧預載
-    setTimeout(() => {
-        const hoverElements = document.querySelectorAll('.npc-hover, .mob-hover');
-        hoverElements.forEach(el => {
-            const attr = el.getAttribute('onmouseover');
-            if (attr) {
-                const match = attr.match(/setHoverImg\(['"](.*?)['"]/);
-                if (match && match[1]) {
-                    preloadImage(match[1]);
-                }
-            }
-        });
-        console.log(`[SmartCache] 已預載 ${Object.keys(imageCache).length} 張切換圖`);
-    }, 1000);
-
     const allDetails = document.querySelectorAll('details');
 
     document.querySelectorAll('details.main-group, details.feature-subgroup').forEach(detail => {
@@ -165,13 +96,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// GIF 靜放處理邏輯
+// GIF 暫動處理邏輯
 setInterval(() => {
     const stageImages = document.querySelectorAll('.timeline-left-panel img');
 
     stageImages.forEach(img => {
         const isGif = img.src.toLowerCase().includes('.gif');
         const row = img.closest('.timeline-row');
+        // 嚴格檢查進度條 (row) 是否處於 active 狀態
         const isActive = row && row.classList.contains('active');
 
         if (isGif && img.complete && img.naturalWidth > 0 && !img.__gifStaticParsed) {
@@ -188,14 +120,22 @@ setInterval(() => {
                     img.__gifStaticSrc = canvas.toDataURL('image/png');
                     img.__gifStaticParsed = true;
                 }
-            } catch (err) {}
+            } catch (err) {
+                // 忽略跨域問題
+            }
         }
 
         if (img.__gifStaticParsed && img.dataset.hovering !== 'true') {
             if (isActive) {
-                if (img.src !== img.__gifAnimSrc) img.src = img.__gifAnimSrc;
+                // 當前階段：啟動動圖
+                if (img.src !== img.__gifAnimSrc) {
+                    img.src = img.__gifAnimSrc;
+                }
             } else {
-                if (img.src !== img.__gifStaticSrc) img.src = img.__gifStaticSrc;
+                // 非當前階段：切換為靜照
+                if (img.src !== img.__gifStaticSrc) {
+                    img.src = img.__gifStaticSrc;
+                }
             }
         }
     });

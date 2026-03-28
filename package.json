@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx @11ty/eleventy --serve",
-    "build": "npx @11ty/eleventy"
+    "build": "npx @11ty/eleventy --pathprefix=/game-info-site/"
   },
   "repository": {
     "type": "git",
@@ -14,10 +14,10 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/fengjiangfang/Power/issues"
+    "url": "https://github.com/fengjiangfang/game-info-site/issues"
   },
-  "homepage": "https://github.com/fengjiangfang/Power#readme",
-  "description": "",
+  "homepage": "https://fengjiangfang.github.io/game-info-site/",
+  "description": "楓降 (FJ) 官方程式遊戲資訊網站",
   "devDependencies": {
     "@11ty/eleventy": "^3.1.2"
   }
