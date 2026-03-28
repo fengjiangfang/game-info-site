@@ -24,6 +24,6 @@ module.exports = function (eleventyConfig) {
       input: "src",
       output: "dist"
     },
-    pathPrefix: isProduction ? "/game-info-site/" : "/"
+    pathPrefix: "/game-info-site/"
   };
 };
