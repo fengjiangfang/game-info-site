@@ -1,31 +1,22 @@
 {% set cn = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'] %}
 
-{% macro dungeonHeader(level, players, exp, rewards, dungeon, location) %}
+{% macro dungeonHeader(level, players, exp, rewards, dungeon, location, type='組隊副本') %}
 <div class="dungeon-info-header">
     <div class="dungeon-info-left">
         <div class="dungeon-reward-box">
             <div class="dungeon-reward-header">副本獎勵資訊</div>
             <div class="reward-table-body">
                 <div class="reward-content-row">
-                    {% set chanceList = rewards.chance if rewards.chance else [] %}
-                    {% set clearList = rewards.clear if rewards.clear else (rewards if rewards is iterable and rewards is not string and not rewards.chance and not rewards.run else []) %}
-                    {% set exchangeList = rewards.exchange if rewards.exchange else [] %}
-                    {% set runList = rewards.run if rewards.run else [] %}
-                    {% set requirementList = rewards.requirement if rewards.requirement else [] %}
-
                     <div class="reward-col">
                         {# 第一欄：通關獎勵 (上) + 機率獲得 (下) #}
                         <div class="reward-col-sub">
                             <span class="reward-sub-label">通關獎勵</span>
                             <div class="reward-items-wrapper">
-                                {% for r in clearList %}
+                                {% for r in rewards.clear %}
                                 <div class="reward-item-row">
-                                    <div class="item-info">
-                                        {{ itemBold(r.name) }}
-                                    </div>
+                                    <div class="item-info">{{ itemBold(r.name) }}</div>
                                     <div class="reward-item-right">{{ r.value }}</div>
                                 </div>
-                                {% if r.note %}<div class="reward-item-note">{{ r.note }}</div>{% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -33,14 +24,11 @@
                         <div class="reward-col-sub">
                             <span class="reward-sub-label">機率獲得</span>
                             <div class="reward-items-wrapper">
-                                {% for r in chanceList %}
+                                {% for r in rewards.chance %}
                                 <div class="reward-item-row">
-                                    <div class="item-info">
-                                        {{ itemBold(r.name) }}
-                                    </div>
+                                    <div class="item-info">{{ itemBold(r.name) }}</div>
                                     <div class="reward-item-right">{{ r.value }}</div>
                                 </div>
-                                {% if r.note %}<div class="reward-item-note">{{ r.note }}</div>{% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -51,19 +39,12 @@
                         <div class="reward-col-sub">
                             <span class="reward-sub-label">硬幣兌換</span>
                             <div class="reward-items-wrapper">
-                                {% for r in exchangeList %}
+                                {% for r in rewards.exchange %}
                                 <div class="reward-item-row-triple">
-                                    <div class="item-cost">
-                                        <span class="reward-item-coin-badge">{{ r.cost }}</span>
-                                    </div>
-                                    <div class="item-info">
-                                        {{ itemBold(r.name) }}
-                                    </div>
-                                    <div class="item-value">
-                                        <div class="reward-item-right">{{ r.value }}</div>
-                                    </div>
+                                    <div class="item-cost"><span class="reward-item-coin-badge">{{ r.cost }}</span></div>
+                                    <div class="item-info">{{ itemBold(r.name) }}</div>
+                                    <div class="item-value"><div class="reward-item-right">{{ r.value }}</div></div>
                                 </div>
-                                {% if r.note %}<div class="reward-item-note">{{ r.note }}</div>{% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -74,32 +55,24 @@
                         <div class="reward-col-sub">
                             <span class="reward-sub-label">稱號升級</span>
                             <div class="reward-items-wrapper">
-                                {% for r in runList %}
+                                {% for r in rewards.run %}
                                 <div class="reward-item-row">
-                                    <div class="item-info">
-                                        {{ itemBold(r.name) }}
-                                    </div>
+                                    <div class="item-info">{{ itemBold(r.name) }}</div>
                                     <div class="reward-item-right">{{ r.value }}</div>
                                 </div>
-                                {% if r.note %}<div class="reward-item-note">{{ r.note }}</div>{% endif %}
+                                <div class="reward-tip-text">最高可升至四屬+3</div>
                                 {% endfor %}
                             </div>
-                            <div class="reward-tip-text">最高可升至四屬+3</div>
                         </div>
 
                         <div class="reward-col-sub">
                             <span class="reward-sub-label">需求材料</span>
                             <div class="reward-items-wrapper">
-                                {% for r in requirementList %}
+                                {% for r in rewards.requirement %}
                                 <div class="reward-item-row-double">
-                                    <div class="item-cost">
-                                        <span class="reward-item-coin-badge">{{ r.cost or r.value }}</span>
-                                    </div>
-                                    <div class="item-info">
-                                        {{ item(r.name) }}
-                                    </div>
+                                    <div class="item-cost"><span class="reward-item-coin-badge">{{ r.cost or r.value }}</span></div>
+                                    <div class="item-info">{{ item(r.name) }}</div>
                                 </div>
-                                {% if r.note %}<div class="reward-item-note">{{ r.note }}</div>{% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -111,21 +84,12 @@
 
     <div class="dungeon-info-right">
         <div class="dungeon-npc-img">
-            <img src="{{ ('/images/組隊副本/' + dungeon + '/入場NPC.png') | url }}" onerror="window.globalImageErrorFallback(this)">
+            <img src="{{ ('/images/' + type + '/' + dungeon + '/入場NPC.png') | url }}" onerror="window.globalImageErrorFallback(this)">
         </div>
         <div class="dungeon-stat-grid">
-            <div class="stat-box">
-                <span class="stat-label">等級限定</span>
-                <span class="stat-value">{{ level }}</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-label">入場人數</span>
-                <span class="stat-value">{{ players }}</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-label">通關經驗</span>
-                <span class="stat-value">{{ exp }}</span>
-            </div>
+            <div class="stat-box"><span class="stat-label">等級限定</span><span class="stat-value">{{ level }}</span></div>
+            <div class="stat-box"><span class="stat-label">入場人數</span><span class="stat-value">{{ players }}</span></div>
+            <div class="stat-box"><span class="stat-label">通關經驗</span><span class="stat-value">{{ exp }}</span></div>
         </div>
         <div class="dungeon-location-badge">
             <i class="fa-solid fa-map-location-dot" style="margin-right: 4px;"></i> 入場地圖－{{ location }}
@@ -134,11 +98,11 @@
 </div>
 {% endmacro %}
 
-{% macro stageRow(num, title, dungeon, ext) %}
+{% macro stageRow(num, title, dungeon, ext='png', type='組隊副本') %}
 <li class="timeline-row">
     <div class="timeline-marker"></div>
     <div class="timeline-left-panel">
-        <img src="{{ ('/images/組隊副本/' + dungeon + '/第' + cn[num] + '階段.' + (ext or 'png')) | url }}" id="stage-{{ num }}-img" onerror="window.globalImageErrorFallback(this)">
+        <img src="{{ ('/images/' + type + '/' + dungeon + '/第' + cn[num] + '階段.' + ext) | url }}" id="stage-{{ num }}-img" onerror="window.globalImageErrorFallback(this)">
         <div class="stage-legend">
             <span id="stage-{{ num }}-img-caption" class="stage-caption">第{{ cn[num] }}階段</span>
         </div>
@@ -157,12 +121,12 @@
 </li>
 {% endmacro %}
 
-{% macro npc(name, img, stage) %}
-<strong class="npc-hover" onmouseover="setHoverImg('{{ ('/images/組隊副本/' + img) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '#27ae60')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
+{% macro npc(name, img, stage, type='組隊副本') %}
+<strong class="npc-hover" onmouseover="setHoverImg('{{ ('/images/' + type + '/' + img) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '#27ae60')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
 {%- endmacro %}
 
-{% macro mob(name, img, stage) %}
-<strong class="mob-hover" onmouseover="setHoverImg('{{ ('/images/組隊副本/' + img) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '#9b59b6')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
+{% macro mob(name, img, stage, type='組隊副本') %}
+<strong class="mob-hover" onmouseover="setHoverImg('{{ ('/images/' + type + '/' + img) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '#9b59b6')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
 {%- endmacro %}
 
 {% macro item(name) -%}

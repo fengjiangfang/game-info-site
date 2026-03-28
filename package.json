@@ -3,14 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "eleventy --serve",
-    "build": "cross-env NODE_ENV=production npx @11ty/eleventy",
-    "deploy": "git add . && git commit -m '🚀 Deploy update' && git push origin main"
+    "start": "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy --pathprefix=/game-info-site/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://fengjiangfang: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@github.com/fengjiangfang/Power.git"
+    "url": "https://github.com/fengjiangfang/game-info-site.git"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +19,6 @@
   "homepage": "https://github.com/fengjiangfang/Power#readme",
   "description": "",
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.2",
-    "cross-env": "^10.1.0"
+    "@11ty/eleventy": "^3.1.2"
   }
 }

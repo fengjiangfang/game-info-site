@@ -23,6 +23,12 @@
     </script>
 </head>
 <body>
+    {% macro navLink(url, label, prefix='　　├ ') %}
+        <a href="{{ url | url }}" class="channel-item sub-channel {% if page.url == url %}active{% endif %}">
+            <span class="channel-name">{{ prefix }}{{ label }}</span>
+        </a>
+    {% endmacro %}
+
     <div class="app-container">
         <nav class="sidebar">
             <div class="server-header">
@@ -36,10 +42,10 @@
                         <span class="channel-name">⚙️《 {{ site.name }}相關 》</span>
                     </summary>
                     <div class="sub-channel-container">
-                        <a href="/基礎設置/" class="channel-item sub-channel {% if page.url == '/基礎設置/' %}active{% endif %}">
+                        <a href="{{ '/基礎設置/' | url }}" class="channel-item sub-channel {% if page.url == '/基礎設置/' %}active{% endif %}">
                             <span class="channel-name">　☆ 基礎設置</span>
                         </a>
-                        <a href="/遊戲規章/" class="channel-item sub-channel {% if page.url == '/遊戲規章/' %}active{% endif %}">
+                        <a href="{{ '/遊戲規章/' | url }}" class="channel-item sub-channel {% if page.url == '/遊戲規章/' %}active{% endif %}">
                             <span class="channel-name">　☆ 遊戲規章</span>
                         </a>
                     </div>
@@ -56,21 +62,11 @@
                                 <span class="channel-name">　★ 主題副本</span>
                             </summary>
                             <div class="sub-channel-container" style="padding-left: 8px;">
-                                <a href="{{ '/主題副本/菇菇王國/' | url }}" class="channel-item sub-channel {% if page.url == '/主題副本/菇菇王國/' %}active{% endif %}">
-                                    <span class="channel-name">　　├ 菇菇王國</span>
-                                </a>
-                                <a href="{{ '/主題副本/里艾那海峽/' | url }}" class="channel-item sub-channel {% if page.url == '/主題副本/里艾那海峽/' %}active{% endif %}">
-                                    <span class="channel-name">　　├ 里艾那海峽</span>
-                                </a>
-                                <a href="{{ '/主題副本/埃羅汀/' | url }}" class="channel-item sub-channel {% if page.url == '/主題副本/埃羅汀/' %}active{% endif %}">
-                                    <span class="channel-name">　　├ 埃羅汀</span>
-                                </a>
-                                <a href="{{ '/主題副本/帕爾坦/' | url }}" class="channel-item sub-channel {% if page.url == '/主題副本/帕爾坦/' %}active{% endif %}">
-                                    <span class="channel-name">　　├ 帕爾坦</span>
-                                </a>
-                                <a href="{{ '/主題副本/克里提亞斯/' | url }}" class="channel-item sub-channel {% if page.url == '/主題副本/克里提亞斯/' %}active{% endif %}">
-                                    <span class="channel-name">　　└ 克里提亞斯</span>
-                                </a>
+                                {{ navLink('/主題副本/菇菇王國/', '菇菇王國') }}
+                                {{ navLink('/主題副本/里艾那海峽/', '里艾那海峽') }}
+                                {{ navLink('/主題副本/埃羅汀/', '埃羅汀') }}
+                                {{ navLink('/主題副本/帕爾坦/', '帕爾坦') }}
+                                {{ navLink('/主題副本/克里提亞斯/', '克里提亞斯', '　　└ ') }}
                             </div>
                         </details>
 
@@ -79,24 +75,12 @@
                                 <span class="channel-name">　★ 組隊副本</span>
                             </summary>
                             <div class="sub-channel-container" style="padding-left: 8px;">
-                                <a href="{{ '/組隊副本/第一次同行/' | url }}" class="channel-item sub-channel {% if page.url == '/組隊副本/第一次同行/' %}active{% endif %}">
-                                    <span class="channel-name">　　├ 第一次同行</span>
-                                </a>
-                                <a href="{{ '/組隊副本/時空的裂縫/' | url }}" class="channel-item sub-channel {% if page.url == '/組隊副本/時空的裂縫/' %}active{% endif %}">
-                                    <span class="channel-name">　　├ 時空的裂縫</span>
-                                </a>
-                                <a href="{{ '/組隊副本/毒霧森林/' | url }}" class="channel-item sub-channel {% if page.url == '/組隊副本/毒霧森林/' %}active{% endif %}">
-                                    <span class="channel-name">　　├ 毒霧森林</span>
-                                </a>
-                                <a href="{{ '/組隊副本/女神的痕跡/' | url }}" class="channel-item sub-channel {% if page.url == '/組隊副本/女神的痕跡/' %}active{% endif %}">
-                                    <span class="channel-name">　　├ 女神的痕跡</span>
-                                </a>
-                                <a href="{{ '/組隊副本/金勾海賊王/' | url }}" class="channel-item sub-channel {% if page.url == '/組隊副本/金勾海賊王/' %}active{% endif %}">
-                                    <span class="channel-name">　　├ 金勾海賊王</span>
-                                </a>
-                                <a href="{{ '/組隊副本/羅密歐與茱麗葉/' | url }}" class="channel-item sub-channel {% if page.url == '/組隊副本/羅密歐與茱麗葉/' %}active{% endif %}">
-                                    <span class="channel-name">　　└ 羅密歐與茱麗葉</span>
-                                </a>
+                                {{ navLink('/組隊副本/第一次同行/', '第一次同行') }}
+                                {{ navLink('/組隊副本/時空的裂縫/', '時空的裂縫') }}
+                                {{ navLink('/組隊副本/毒霧森林/', '毒霧森林') }}
+                                {{ navLink('/組隊副本/女神的痕跡/', '女神的痕跡') }}
+                                {{ navLink('/組隊副本/金勾海賊王/', '金勾海賊王') }}
+                                {{ navLink('/組隊副本/羅密歐與茱麗葉/', '羅密歐與茱麗葉', '　　└ ') }}
                             </div>
                         </details>
                     </div>
@@ -112,149 +96,7 @@
         </main>
     </div>
 
-    <script src="/js/dungeon-interact.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const allDetails = document.querySelectorAll('details');
-
-            document.querySelectorAll('details.main-group, details.feature-subgroup').forEach(detail => {
-                detail.addEventListener('mouseenter', () => {
-                    detail.setAttribute('open', '');
-                });
-                detail.addEventListener('mouseleave', () => {
-                    if (!detail.querySelector('.active')) {
-                        detail.removeAttribute('open');
-                        if (detail.id) {
-                            localStorage.setItem('details_state_' + detail.id, 'closed');
-                        }
-                    }
-                });
-            });
-
-            document.querySelectorAll('summary').forEach(summary => {
-                summary.addEventListener('click', (e) => {
-                    const detail = summary.parentElement;
-                    if (detail.open && detail.querySelector('.active')) {
-                        e.preventDefault();
-                    }
-                });
-            });
-
-            allDetails.forEach(detail => {
-                if (detail.id) {
-                    const hasActiveChild = detail.querySelector('.active');
-                    if (hasActiveChild) {
-                        detail.setAttribute('open', '');
-                        localStorage.setItem('details_state_' + detail.id, 'open');
-                    } else {
-                        if (detail.classList.contains('feature-subgroup')) {
-                            detail.removeAttribute('open');
-                            localStorage.setItem('details_state_' + detail.id, 'closed');
-                        } else {
-                            const savedState = localStorage.getItem('details_state_' + detail.id);
-                            if (savedState === 'open') {
-                                detail.setAttribute('open', '');
-                            } else if (savedState === 'closed') {
-                                detail.removeAttribute('open');
-                            }
-                        }
-                    }
-                }
-
-                if (detail.id) {
-                    detail.addEventListener('toggle', () => {
-                        if (detail.open) {
-                            localStorage.setItem('details_state_' + detail.id, 'open');
-
-                            if (detail.classList.contains('main-group')) {
-                                document.querySelectorAll('details.main-group').forEach(sibling => {
-                                    if (sibling !== detail && sibling.open && !sibling.querySelector('.active')) {
-                                        sibling.removeAttribute('open');
-                                        if (sibling.id) {
-                                            localStorage.setItem('details_state_' + sibling.id, 'closed');
-                                        }
-                                    }
-                                });
-                            }
-
-                            if (detail.classList.contains('feature-subgroup')) {
-                                document.querySelectorAll('details.feature-subgroup').forEach(sibling => {
-                                    if (sibling !== detail && sibling.open && !sibling.querySelector('.active')) {
-                                        sibling.removeAttribute('open');
-                                        if (sibling.id) {
-                                            localStorage.setItem('details_state_' + sibling.id, 'closed');
-                                        }
-                                    }
-                                });
-                            }
-
-                        } else {
-                            if (detail.querySelector('.active')) {
-                                detail.setAttribute('open', '');
-                                localStorage.setItem('details_state_' + detail.id, 'open');
-                            } else {
-                                localStorage.setItem('details_state_' + detail.id, 'closed');
-                            }
-                        }
-                    });
-                }
-            });
-
-            document.querySelectorAll('details.main-group').forEach(detail => {
-                if (detail.querySelector('.active')) {
-                    document.querySelectorAll('details.main-group').forEach(sibling => {
-                        if (sibling !== detail && !sibling.querySelector('.active')) {
-                            sibling.removeAttribute('open');
-                            if (sibling.id) localStorage.setItem('details_state_' + sibling.id, 'closed');
-                        }
-                    });
-                }
-            });
-        });
-    </script>
-
-    <script>
-        setInterval(() => {
-            const stageImages = document.querySelectorAll('.timeline-left-panel img');
-
-            stageImages.forEach(img => {
-                const isGif = img.src.toLowerCase().includes('.gif');
-                const row = img.closest('.timeline-row');
-                const isActive = row && row.classList.contains('active');
-
-                if (isGif && img.complete && img.naturalWidth > 0 && isActive && !img.__gifStaticParsed) {
-                    try {
-                        const canvas = document.createElement('canvas');
-                        canvas.width = img.naturalWidth || 600;
-                        canvas.height = img.naturalHeight || 450;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-                        const pixel = ctx.getImageData(canvas.width/2, canvas.height/2, 1, 1).data;
-                        if (pixel[3] > 0) {
-                            img.__gifAnimSrc = img.src;
-                            img.__gifStaticSrc = canvas.toDataURL('image/png');
-                            img.__gifStaticParsed = true;
-                        }
-                    } catch (err) {
-                        console.error("Canvas draw failed: ", err);
-                    }
-                }
-
-                if (img.__gifStaticParsed && img.dataset.hovering !== 'true') {
-                    if (isActive) {
-                        if (img.src !== img.__gifAnimSrc) {
-                            img.src = img.__gifAnimSrc;
-                        }
-                    } else {
-                        if (img.src !== img.__gifStaticSrc) {
-                            img.src = img.__gifStaticSrc;
-                        }
-                    }
-                }
-            });
-        }, 300);
-    </script>
+    <script src="{{ '/js/dungeon-interact.js' | url }}"></script>
+    <script src="{{ '/js/sidebar-logic.js' | url }}"></script>
 </body>
 </html>
