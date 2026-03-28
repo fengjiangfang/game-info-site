@@ -1,0 +1,57 @@
+---
+layout: layout.njk
+title: 主題副本
+---
+
+<div class="dungeon-index-header">
+    <h1 class="dungeon-index-title">主題副本 (Theme Dungeon)</h1>
+    <p class="dungeon-index-subtitle">沉浸式的劇情體驗，探索世界各地的神祕故事！</p>
+</div>
+
+<div class="dungeon-grid">
+    {% set themes = [
+        { name: '菇菇王國', level: '30等 ↑', img: '菇菇王國/1.png', url: '/主題副本/菇菇王國/' },
+        { name: '里艾那海峽', level: '50等 ↑', img: '里艾那海峽/1.png', url: '/主題副本/里艾那海峽/' },
+        { name: '埃羅汀', level: '30等 ↑', img: '埃羅汀/1.png', url: '/主題副本/埃羅汀/' },
+        { name: '帕爾坦', level: '30等 ↑', img: '帕爾坦/1.png', url: '/主題副本/帕爾坦/' },
+        { name: '克里提亞斯', level: '170等 ↑', img: '克里提亞斯/1.png', url: '/主題副本/克里提亞斯/' }
+    ] %}
+
+    {% for theme in themes %}
+    <a href="{{ theme.url | url }}" class="dungeon-card">
+        <div class="dungeon-card-img-wrapper">
+            <img src="{{ ('/images/' + theme.img) | url }}" alt="{{ theme.name }}">
+        </div>
+        <div class="dungeon-card-content">
+            <h3 class="dungeon-card-name">{{ theme.name }}</h3>
+            <div class="dungeon-card-meta">
+                <span class="dungeon-meta-label">等級需求：</span>
+                <span class="dungeon-meta-value">{{ theme.level }}</span>
+            </div>
+            <span class="dungeon-card-btn">進入副本</span>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+<style>
+.dungeon-index-header { text-align: center; margin-bottom: 40px; padding: 40px 20px; background: rgba(0,0,0,0.2); border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); }
+.dungeon-index-title { font-size: 28px; color: #a2cf6e; margin-bottom: 10px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+.dungeon-index-subtitle { color: #aaa; font-size: 14px; }
+
+.dungeon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px; }
+.dungeon-card { background: #222; border-radius: 12px; overflow: hidden; text-decoration: none; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+.dungeon-card:hover { transform: translateY(-5px); border-color: #a2cf6e; box-shadow: 0 8px 15px rgba(162,207,110,0.2); }
+
+.dungeon-card-img-wrapper { height: 160px; background: #333; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.dungeon-card-img-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+.dungeon-card-content { padding: 20px; }
+.dungeon-card-name { font-size: 20px; color: #fff; margin-bottom: 15px; font-weight: bold; }
+.dungeon-card-meta { margin-bottom: 8px; font-size: 13px; }
+.dungeon-meta-label { color: #888; }
+.dungeon-meta-value { color: #ddd; }
+
+.dungeon-card-btn { display: inline-block; margin-top: 15px; padding: 8px 20px; background: #a2cf6e; color: #000; border-radius: 20px; font-size: 12px; font-weight: bold; transition: background 0.2s; }
+.dungeon-card:hover .dungeon-card-btn { background: #c5ff8c; }
+</style>
