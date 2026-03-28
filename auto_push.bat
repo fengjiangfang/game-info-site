@@ -1,32 +1,34 @@
 @echo off
-:: Use UTF-8 Encoding
 chcp 65001 > nul
 setlocal enabledelayedexpansion
 
 echo --------------------------------------------------------
-echo [MONITOR] AUTO-PUSH ACTIVE - KEEP THIS WINDOW OPEN
-echo [PATH] %cd%
+echo [AUTO-PUSH-MONITOR] Stable Mode Active (Supports Chinese)
+echo [PROJECT] %cd%
 echo --------------------------------------------------------
 
 :loop
-:: Scan for modified (M) or added (A) text files
-git status --porcelain | findstr /R "^.M .A" | findstr /V "images/ .git/ node_modules/ dist/" > changed_files.tmp
+:: Check if there are ANY changes (ignoring temp files)
+git status --porcelain | findstr /V ".git/ node_modules/ dist/ auto_push.bat changed.txt" > changed.txt
 
-:: Check if changed_files.tmp size is greater than 0
-for %%I in (changed_files.tmp) do if %%~zI GTR 0 (
+:: If changed.txt has content (size > 0)
+for %%I in (changed.txt) do if %%~zI GTR 0 (
     echo.
-    echo %time% [DETECTED] Changes in source files!
-    type changed_files.tmp
+    echo %time% [DETECTED] Changes in project...
+    type changed.txt
     
-    echo [SYNC] Uploading to GitHub...
-    git add .
-    git commit -m "Auto-sync: %date% %time%" --quiet
+    echo [SYNCING] Adding changes...
+    :: Use -A but Git is smart with 'fsmonitor', so this will be fast
+    git add -A
+    git commit -m "Auto sync: %date% %time%" --quiet
+    
+    echo [PUSHING] Uploading to GitHub...
     git push origin main --quiet
     
-    echo [DONE] Site updated on GitHub.
+    echo [DONE] Precision sync completed.
     echo --------------------------------------------------------
 )
 
-:: Wait for 3 seconds before next scan
+:: Wait 3 seconds
 timeout /t 3 /nobreak > nul
 goto loop
