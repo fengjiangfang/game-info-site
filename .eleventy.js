@@ -13,8 +13,8 @@ module.exports = function(eleventyConfig) {
             input: "src",
             output: "dist"
         },
-        // 確保線上部署與本地端在不同路徑下運作
-        pathPrefix: process.env.GITHUB_PAGES ? "/game-info-site/" : "/",
+        // 統一鎖定路徑前綴，確保本地與線上環境路徑結構一致，徹底移除 404 風險
+        pathPrefix: "/game-info-site/",
         templateFormats: ["njk", "md", "html"],
         htmlTemplateEngine: "njk",
         markdownTemplateEngine: "njk"
