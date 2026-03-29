@@ -112,11 +112,10 @@ function preloadAllDungeonImages() {
         }
     });
 
-    // 也預載入階段圖片的 GIF 與 JPG 版本
+    // 預載入 WebP 動動態效果 (主要是為了確保緩存)
     document.querySelectorAll('.timeline-left-panel img').forEach(img => {
         if (img.src) {
-            preloadPaths.add(img.src.replace(/\.(png|jpg|jpeg|webp)$/i, '.gif'));
-            preloadPaths.add(img.src.replace(/\.(gif|png|jpeg|webp)$/i, '.jpg'));
+            preloadPaths.add(img.src);
         }
     });
 
@@ -184,10 +183,9 @@ function refreshStageImage(img) {
 // 記錄進入頁面時的原始來源
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.timeline-left-panel img').forEach(img => {
-        img.__originalSrc = img.src;
-        if (img.src.toLowerCase().includes('.gif')) {
-            refreshStageImage(img);
-        }
+        if (!img.__originalSrc) img.__originalSrc = img.src;
+        // 不再限於 .gif，只要有圖就執行一次狀態刷，讓定時器去捕捉 canvas 快照
+        refreshStageImage(img);
     });
 });
 
@@ -217,15 +215,16 @@ function setHoverImg(url, imgId, name, color) {
     }
 }
 
-// GIF 全域處理輪詢
+// WebP/GIF 全域處理輪詢
 setInterval(() => {
     const stageImages = document.querySelectorAll('.timeline-left-panel img');
 
     stageImages.forEach(img => {
         const originalPath = img.__originalSrc || img.src;
-        const isGif = originalPath.toLowerCase().includes('.gif');
+        // 偵測是否為動態 WebP 或 GIF
+        const isDynamic = /\.(webp|gif)$/i.test(originalPath);
 
-        if (isGif && img.complete && img.naturalWidth > 0 && !img.__gifStaticParsed) {
+        if (isDynamic && img.complete && img.naturalWidth > 0 && !img.__gifStaticParsed) {
             try {
                 const canvas = document.createElement('canvas');
                 canvas.width = img.naturalWidth;

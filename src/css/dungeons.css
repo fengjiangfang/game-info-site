@@ -629,6 +629,7 @@
     gap: 8px;
     margin: 4px 0 10px 0;
 }
+
 .stat-box {
     display: flex;
     flex-direction: column;
@@ -640,6 +641,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
     min-width: 0;
 }
+
 .stat-box .stat-label {
     font-size: 10px;
     font-weight: 800;
@@ -647,6 +649,7 @@
     letter-spacing: 0px;
     margin-bottom: 2px;
 }
+
 .stat-box .stat-value {
     font-size: 14px;
     font-weight: 900;
@@ -668,7 +671,7 @@
 }
 
 .dungeon-reward-header {
-    background: #f368a2;
+    background: #ff9f43;
     color: white;
     font-size: 16px;
     font-weight: 800;
