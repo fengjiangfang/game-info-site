@@ -2,13 +2,9 @@
 layout: layout.njk
 title: 帕爾坦
 ---
-{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav %}
+{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav, banner %}
 
-<div class="forum-banner">
-    <div class="forum-banner-content">
-        <h1>帕爾坦</h1>
-    </div>
-</div>
+{{ banner('帕爾坦') }}
 
 <div class="forum-main-card forum-main-card-warm">
     
@@ -20,10 +16,10 @@ title: 帕爾坦
         exchange: [],
         run: [],
         requirement: []
-    }, '帕爾坦', '帕爾坦:暗影峽谷口') }}
+    }, '帕爾坦', '帕爾坦:暗影峽谷口', '主題副本') }}
 
     <ul class="dungeon-timeline-full">
-        {% call() stageRow(1, '「遠古的遺跡」', '帕爾坦') %}
+        {% call() stageRow(1, '「遠古的遺跡」', '帕爾坦', 'webp', '主題副本') %}
         <ul class="rule-list">
             <li>(內容準備中...)</li>
         </ul>

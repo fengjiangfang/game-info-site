@@ -1,14 +1,35 @@
 :root {
-  --discord-bg-primary: #fffdf5;
-  --discord-bg-secondary: #4e342e;
-  --discord-bg-tertiary: #3e2723;
-  --discord-text-normal: #fff8e1;
-  --discord-text-muted: #d7ccc8;
-  --discord-header-secondary: #ffcc80;
-  --discord-channel-hover: #5d4037;
-  --discord-channel-active: #ff9f43;
-  --discord-accent: #ff9f43;
+  /* 核心設計系統 Tokens */
+  --color-accent: #ff9f43;      /* 品牌橘 */
+  --color-primary-dark: #d35400;  /* 深橘色 */
+  --color-primary-light: #ffcc80; /* 淺橘色 */
+  --color-npc: #27ae60;         /* NPC 綠 */
+  --color-mob: #9b59b6;         /* 怪物紫 */
+  --color-text-dark: #2d3436;
+  --color-text-muted: #d7ccc8;
+  --color-bg-light: #fffdf5;    /* 淺米色背景 */
+  --color-bg-warm: #fdf9ee;     /* 暖色背景 */
+
+  /* 佈局 Tokens */
   --sidebar-width: 250px;
+  --header-height: 60px;
+  
+  --radius-sm: 4px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  
+  --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+  
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.4s ease;
+
+  /* 側邊欄專用 (保留兼容性) */
+  --sidebar-bg: #4e342e;
+  --sidebar-bg-dark: #3e2723;
+  --sidebar-hover: #5d4037;
+  --sidebar-text: #fff8e1;
+  --sidebar-header: #ffcc80;
 }
 
 * {
@@ -19,8 +40,8 @@
 }
 
 body {
-  background-color: var(--discord-bg-primary);
-  color: var(--discord-text-normal);
+  background-color: var(--color-bg-light);
+  color: var(--color-text-dark);
   height: 100vh;
   overflow: hidden;
 }

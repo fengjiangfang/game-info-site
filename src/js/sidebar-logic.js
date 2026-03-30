@@ -95,11 +95,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 全域圖片預載入與平滑切換
     preloadAllDungeonImages();
+
+    document.querySelectorAll('.timeline-left-panel img').forEach(img => {
+        if (!img.__originalSrc) img.__originalSrc = img.src;
+        refreshStageImage(img);
+    });
 });
 
-// 預載入所有 NPC/怪物圖片
 function preloadAllDungeonImages() {
     const hoverElements = document.querySelectorAll('[onmouseover*="setHoverImg"]');
     const preloadPaths = new Set();
@@ -112,7 +115,6 @@ function preloadAllDungeonImages() {
         }
     });
 
-    // 預載入 WebP 動動態效果 (主要是為了確保緩存)
     document.querySelectorAll('.timeline-left-panel img').forEach(img => {
         if (img.src) {
             preloadPaths.add(img.src);
@@ -134,34 +136,28 @@ function resetHoverImg(imgId) {
     img.dataset.hovering = 'false';
     img.classList.add('loading');
 
-    // 立刻執行還原邏輯
     refreshStageImage(img);
-    
-    // 恢復外框顏色為預設 (橘色)
+
     img.style.borderColor = '';
 
     const num = imgId.split('-')[1];
-    const originalCaption = `第${cn[num]}階段`;
-    
     const caption = document.getElementById(imgId + '-caption');
     if (caption) {
-        caption.innerText = originalCaption;
-        // 移除內嵌樣式，讓它恢復到 CSS 定義的顏色
-        caption.style.color = ''; 
+        caption.innerText = `第${cn[num]}階段`;
+        caption.style.color = '';
         caption.style.fontWeight = '';
     }
-    
+
     setTimeout(() => {
         img.classList.remove('loading');
     }, 100);
 }
 
-// 更新單張階段圖片的顯示狀態
 function refreshStageImage(img) {
     if (!img.__originalSrc) {
         img.__originalSrc = img.src;
     }
-    
+
     if (img.dataset.hovering === 'true') return;
 
     const row = img.closest('.timeline-row');
@@ -180,24 +176,13 @@ function refreshStageImage(img) {
     }
 }
 
-// 記錄進入頁面時的原始來源
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.timeline-left-panel img').forEach(img => {
-        if (!img.__originalSrc) img.__originalSrc = img.src;
-        // 不再限於 .gif，只要有圖就執行一次狀態刷，讓定時器去捕捉 canvas 快照
-        refreshStageImage(img);
-    });
-});
-
-// 平滑切換圖片
 function setHoverImg(url, imgId, name, color) {
     const img = document.getElementById(imgId);
     if (!img) return;
 
     img.dataset.hovering = 'true';
     img.classList.add('loading');
-    
-    // 變更圖片外框顏色以符合文字顏色
+
     img.style.borderColor = color;
 
     const newImg = new Image();
@@ -215,13 +200,11 @@ function setHoverImg(url, imgId, name, color) {
     }
 }
 
-// WebP/GIF 全域處理輪詢
 setInterval(() => {
     const stageImages = document.querySelectorAll('.timeline-left-panel img');
 
     stageImages.forEach(img => {
         const originalPath = img.__originalSrc || img.src;
-        // 偵測是否為動態 WebP 或 GIF
         const isDynamic = /\.(webp|gif)$/i.test(originalPath);
 
         if (isDynamic && img.complete && img.naturalWidth > 0 && !img.__gifStaticParsed) {

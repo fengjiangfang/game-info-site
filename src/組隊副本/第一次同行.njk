@@ -2,36 +2,13 @@
 layout: layout.njk
 title: 第一次同行
 ---
-{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav %}
+{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav, banner, tip, partyDungeonHeader %}
 
-<div class="forum-banner">
-    <div class="forum-banner-content">
-        <h1>第一次同行</h1>
-    </div>
-</div>
+{{ banner('第一次同行') }}
 
 <div class="forum-main-card forum-main-card-warm">
     
-    {{ dungeonHeader('２１等 ↑', '３～６人', '６０００', {
-        clear: [
-            { name: '超綠組隊硬幣', value: '1 個' },
-            { name: '洗血精華秘藥罐', value: '10 個' }
-        ],
-        chance: [
-            { name: '轉蛋券', value: '1 個' }
-        ],
-        exchange: [
-            { name: '經驗加倍券', cost: '5 硬幣', value: '四屬+1' },
-            { name: '超綠組隊騎寵', cost: '20 硬幣', value: '四屬+1' }
-        ],
-        run: [
-            { name: '超綠組隊稱號', value: '四屬+1' }
-        ],
-        requirement: [
-            { name: '超綠組隊硬幣', value: '1 個' },
-            { name: '一百萬楓幣袋', value: '10 個' }
-        ]
-    }, '第一次同行', '維多利亞島:墮落城市') }}
+    {{ partyDungeonHeader('２１等 ↑', '３～６人', '６０００', '超綠組隊', '維多利亞島:墮落城市', '第一次同行') }}
 
     <ul class="dungeon-timeline-full">
         {% call() stageRow(1, '組隊訓練場<1階段>', '第一次同行') %}

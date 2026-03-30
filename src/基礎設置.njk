@@ -2,120 +2,124 @@
 layout: layout.njk
 title: 基礎設置
 ---
-<div class="forum-banner">
-    <div class="forum-banner-content" style="text-align: center;">
-        <h1>{{ site.name }}基礎設置</h1>
-    </div>
-</div>
+{% from "dungeon-macros.njk" import banner %}
+{{ banner(site.name + '基礎設置', true) }}
 
 <div class="forum-main-card" style="background-color: #fff4e6;">
+    <!-- 懷舊Ver.113版本 -->
     <div class="rules-grid-container" style="gap: 16px;">
-    <div class="rule-card rule-card-hero">
-        <div class="rule-card-hero-title">懷舊Ver.113版本</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">等級上限</div>
-        <div class="stat-value">2 0 0 等</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">開放職業</div>
-        <div class="stat-value">冒險家</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">預設頂傷</div>
-        <div class="stat-value">1 9 9 9 9 9</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">多開限制</div>
-        <div class="stat-value">可同時開啟２個視窗遊玩</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">帳號註冊</div>
-        <div class="stat-value">每個ＩＰ僅限制註冊兩組</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">現金交易</div>
-        <div class="stat-value">開放｜自行承擔交易風險</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">購物商城</div>
-        <div class="stat-value">同步海外最新款</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">獨家造型</div>
-        <div class="stat-value">近千種動漫造型</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">髮型臉型</div>
-        <div class="stat-value">同步海外最新款</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">掉寶倍率</div>
-        <div class="stat-value">x 1.0</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">楓幣倍率</div>
-        <div class="stat-value">x 1.0</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">任務倍率</div>
-        <div class="stat-value">x 1.0</div>
-    </div>
-
-    <div class="rule-card rule-card-hero">
-        <div class="rule-card-hero-title">{{ site.name }}經驗倍率</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">Lv.1~Lv.29</div>
-        <div class="stat-value-orange">x 1.2</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">Lv.30~Lv.49</div>
-        <div class="stat-value-orange">x 1.1</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">Lv.50~Lv.69</div>
-        <div class="stat-value-orange">x 1.0</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">Lv.70~Lv.99</div>
-        <div class="stat-value-orange">x 0.9</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">Lv.100~Lv.119</div>
-        <div class="stat-value-orange">x 0.8</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">Lv.120~Lv.139</div>
-        <div class="stat-value-orange">x 0.7</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">Lv.140~Lv.159</div>
-        <div class="stat-value-orange">x 0.6</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">Lv.160~Lv.179</div>
-        <div class="stat-value-orange">x 0.5</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div class="stat-label">Lv.180~Lv.199</div>
-        <div class="stat-value-orange">x 0.4</div>
-    </div>
-    <div class="rule-card" style="padding: 16px; background-color: #faf9e9ff; border: 2px solid #ffeaa7; align-items: center; justify-content: center; grid-column: span 3;">
-        <div style="font-size: 16px; font-weight: 900; color: #e74c3c;">每位隊伍成員將額外增加10%經驗</div>
+        <div class="rule-card rule-card-hero">
+            <div class="rule-card-hero-title">懷舊Ver.113版本</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">等級上限</div>
+            <div class="stat-value">2 0 0 等</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">開放職業</div>
+            <div class="stat-value">冒險家</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">預設頂傷</div>
+            <div class="stat-value">1 9 9 9 9 9</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">多開限制</div>
+            <div class="stat-value">可同時開啟２個視窗遊玩</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">帳號註冊</div>
+            <div class="stat-value">每個ＩＰ僅限制註冊兩組</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">現金交易</div>
+            <div class="stat-value">開放｜自行承擔交易風險</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">購物商城</div>
+            <div class="stat-value">同步海外最新款</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">獨家造型</div>
+            <div class="stat-value">近千種動漫造型</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">髮型臉型</div>
+            <div class="stat-value">同步海外最新款</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">掉寶倍率</div>
+            <div class="stat-value">x 1.0</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">楓幣倍率</div>
+            <div class="stat-value">x 1.0</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">任務倍率</div>
+            <div class="stat-value">x 1.0</div>
+        </div>
     </div>
 
-    <div class="rule-card rule-card-hero">
-        <div class="rule-card-hero-title">登入器獨家功能</div>
+    <!-- 伺服器經驗倍率 -->
+    <div class="rules-grid-container" style="gap: 16px;">
+        <div class="rule-card rule-card-hero">
+            <div class="rule-card-hero-title">{{ site.name }}經驗倍率</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">Lv.1~Lv.29</div>
+            <div class="stat-value-orange">x 1.2</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">Lv.30~Lv.49</div>
+            <div class="stat-value-orange">x 1.1</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">Lv.50~Lv.69</div>
+            <div class="stat-value-orange">x 1.0</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">Lv.70~Lv.99</div>
+            <div class="stat-value-orange">x 0.9</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">Lv.100~Lv.119</div>
+            <div class="stat-value-orange">x 0.8</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">Lv.120~Lv.139</div>
+            <div class="stat-value-orange">x 0.7</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">Lv.140~Lv.159</div>
+            <div class="stat-value-orange">x 0.6</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">Lv.160~Lv.179</div>
+            <div class="stat-value-orange">x 0.5</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div class="stat-label">Lv.180~Lv.199</div>
+            <div class="stat-value-orange">x 0.4</div>
+        </div>
+        <div class="rule-card rule-card-notice">
+            <div style="font-size: 16px; font-weight: 900; color: #e74c3c;">每位隊伍成員將額外增加10%經驗</div>
+        </div>
     </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div style="font-size: 16px; font-weight: 900; color: #2d3436;">雙手武器可改單手武器顯示</div>
+
+    <!-- 登入器獨家功能 -->
+    <div class="rules-grid-container" style="gap: 16px;">
+        <div class="rule-card rule-card-hero">
+            <div class="rule-card-hero-title">登入器獨家功能</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div style="font-size: 16px; font-weight: 900; color: #2d3436;">雙手武器可改單手武器顯示</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div style="font-size: 16px; font-weight: 900; color: #2d3436;">聊天頻道可選分類單獨顯示</div>
+        </div>
+        <div class="rule-card rule-card-bordered rule-card-stat">
+            <div style="font-size: 16px; font-weight: 900; color: #2d3436;">字型及特效透明度自由調整</div>
+        </div>
     </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div style="font-size: 16px; font-weight: 900; color: #2d3436;">聊天頻道可選分類單獨顯示</div>
-    </div>
-    <div class="rule-card rule-card-bordered rule-card-stat">
-        <div style="font-size: 16px; font-weight: 900; color: #2d3436;">字型及特效透明度自由調整</div>
-    </div>
-</div>
 </div>

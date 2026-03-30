@@ -2,11 +2,8 @@
 layout: layout.njk
 title: 主題副本總覽
 ---
-<div class="forum-banner">
-    <div class="forum-banner-content" style="text-align: center;">
-        <h1>{{ site.name }}主題副本</h1>
-    </div>
-</div>
+{% from "dungeon-macros.njk" import banner %}
+{{ banner(site.name + '主題副本', true) }}
 
 <div class="forum-main-card forum-main-card-warm">
     <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">

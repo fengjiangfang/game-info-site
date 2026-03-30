@@ -1,14 +1,29 @@
 {% set cn = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'] %}
 
+{# ── 通用 ──────────────────────────────────────────── #}
+
+{% macro banner(title, center=false) %}
+<div class="forum-banner">
+    <div class="forum-banner-content"{% if center %} style="text-align: center;"{% endif %}>
+        <h1>{{ title | safe }}</h1>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro tip(text) %}
+<li><span class="tip-text">💡 {{ text | safe }}</span></li>
+{% endmacro %}
+
+{# ── 副本 Header ────────────────────────────────────── #}
+
 {% macro dungeonHeader(level, players, exp, rewards, dungeon, location, type='組隊副本') %}
 <div class="dungeon-info-header">
-    <div class="dungeon-info-left">
+    <div class="dungeon-info-left dungeon-card">
         <div class="dungeon-reward-box">
             <div class="dungeon-reward-header">副本獎勵資訊</div>
             <div class="reward-table-body">
                 <div class="reward-content-row">
                     <div class="reward-col">
-                        {# 第一欄：通關獎勵 (上) + 機率獲得 (下) #}
                         <div class="reward-col-sub">
                             <span class="reward-sub-label">通關獎勵</span>
                             <div class="reward-items-wrapper">
@@ -35,7 +50,6 @@
                     </div>
 
                     <div class="reward-col">
-                        {# 第二欄：硬幣兌換 #}
                         <div class="reward-col-sub">
                             <span class="reward-sub-label">硬幣兌換</span>
                             <div class="reward-items-wrapper">
@@ -51,7 +65,6 @@
                     </div>
 
                     <div class="reward-col">
-                        {# 第三欄：稱號升級 (上) + 需求材料 (下) #}
                         <div class="reward-col-sub">
                             <span class="reward-sub-label">稱號升級</span>
                             <div class="reward-items-wrapper">
@@ -82,7 +95,7 @@
         </div>
     </div>
 
-    <div class="dungeon-info-right">
+    <div class="dungeon-info-right dungeon-card">
         <div class="dungeon-npc-img">
             <img src="{{ ('/images/' + type + '/' + dungeon + '/入場NPC.webp') | url }}" onerror="window.globalImageErrorFallback(this)">
         </div>
@@ -92,11 +105,39 @@
             <div class="stat-box"><span class="stat-label">通關經驗</span><span class="stat-value">{{ exp }}</span></div>
         </div>
         <div class="dungeon-location-badge">
-            <i class="fa-solid fa-map-location-dot" style="margin-right: 4px;"></i> 入場地圖－{{ location }}
+            <i class="fa-solid fa-map-location-dot"></i>
+            <span class="location-prefix">入場地圖</span><span class="location-name">{{ location }}</span>
         </div>
     </div>
 </div>
 {% endmacro %}
+
+{# 組隊副本通用標頭（固定獎勵結構快捷版）
+   prefix 例：'毒霧組隊' → 自動帶入硬幣、騎寵、稱號 #}
+{% macro partyDungeonHeader(level, players, exp, prefix, location, dungeon) %}
+{{ dungeonHeader(level, players, exp, {
+    clear: [
+        { name: prefix + '硬幣', value: '1 個' },
+        { name: '洗血精華秘藥罐', value: '10 個' }
+    ],
+    chance: [
+        { name: '轉蛋券', value: '1 個' }
+    ],
+    exchange: [
+        { name: '經驗加倍券', cost: '5 硬幣', value: '四屬+1' },
+        { name: prefix + '騎寵', cost: '20 硬幣', value: '四屬+1' }
+    ],
+    run: [
+        { name: prefix + '稱號', value: '四屬+1' }
+    ],
+    requirement: [
+        { name: prefix + '硬幣', value: '1 個' },
+        { name: '一百萬楓幣袋', value: '10 個' }
+    ]
+}, dungeon, location) }}
+{% endmacro %}
+
+{# ── 階段列 ─────────────────────────────────────────── #}
 
 {% macro stageRow(num, title, dungeon, ext='webp', type='組隊副本') %}
 <li class="timeline-row">
@@ -121,13 +162,17 @@
 </li>
 {% endmacro %}
 
-{% macro npc(name, img, stage, type='組隊副本') %}
-<strong class="npc-hover" onmouseover="setHoverImg('{{ ('/images/' + type + '/' + img.replace('.png', '.webp').replace('.gif', '.webp')) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '#27ae60')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
+{# ── NPC / 怪物 hover ────────────────────────────────── #}
+
+{% macro npc(name, img, stage, type='組隊副本', color='#27ae60') %}
+<strong class="npc-hover" onmouseover="setHoverImg('{{ ('/images/' + type + '/' + img.replace('.png', '.webp').replace('.gif', '.webp')) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '{{ color }}')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
 {%- endmacro %}
 
-{% macro mob(name, img, stage, type='組隊副本') %}
-<strong class="mob-hover" onmouseover="setHoverImg('{{ ('/images/' + type + '/' + img.replace('.png', '.webp').replace('.gif', '.webp')) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '#9b59b6')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
+{% macro mob(name, img, stage, type='組隊副本', color='#9b59b6') %}
+<strong class="mob-hover" onmouseover="setHoverImg('{{ ('/images/' + type + '/' + img.replace('.png', '.webp').replace('.gif', '.webp')) | url }}', 'stage-{{ stage }}-img', '{{ name }}', '{{ color }}')" onmouseout="resetHoverImg('stage-{{ stage }}-img')">{{ name }}</strong>
 {%- endmacro %}
+
+{# ── 道具 ────────────────────────────────────────────── #}
 
 {% macro item(name) -%}
 <span class="item-text"><img src="{{ ('/images/icon/' + name + '.webp') | url }}" class="text-icon" onerror="window.globalImageErrorFallback(this)">{{ name }}</span>
@@ -136,6 +181,8 @@
 {% macro itemBold(name) -%}
 <span class="item-text-bold"><img src="{{ ('/images/icon/' + name + '.webp') | url }}" class="text-icon" onerror="window.globalImageErrorFallback(this)">{{ name }}</span>
 {%- endmacro %}
+
+{# ── 副本導覽列 ──────────────────────────────────────── #}
 
 {% macro dungeonNav(type, prev, next) %}
 <div class="dungeon-nav">
@@ -147,7 +194,7 @@
         {% endif %}
 
         <a href="{{ ('/' + type + '副本/') | url }}" class="nav-center-btn">返回{{ type }}副本總覽</a>
-        
+
         {% if next %}
         <div class="dungeon-nav-next">
             <a href="{{ ('/' + type + '副本/' + next + '/') | url }}" class="nav-side-btn">{{ next }} <i class="fa-solid fa-arrow-right"></i></a>

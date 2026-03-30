@@ -2,13 +2,9 @@
 layout: layout.njk
 title: 里艾那海峽
 ---
-{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav %}
+{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav, banner %}
 
-<div class="forum-banner">
-    <div class="forum-banner-content">
-        <h1>里艾那海峽</h1>
-    </div>
-</div>
+{{ banner('里艾那海峽') }}
 
 <div class="forum-main-card forum-main-card-warm">
     
@@ -21,10 +17,10 @@ title: 里艾那海峽
         exchange: [],
         run: [],
         requirement: []
-    }, '里艾那海峽', '里艾那海峽:觀測站') }}
+    }, '里艾那海峽', '里艾那海峽:觀測站', '主題副本') }}
 
     <ul class="dungeon-timeline-full">
-        {% call() stageRow(1, '「氣候異常調查」', '里艾那海峽') %}
+        {% call() stageRow(1, '「氣候異常調查」', '里艾那海峽', 'webp', '主題副本') %}
         <ul class="rule-list">
             <li>(內容準備中...)</li>
         </ul>

@@ -2,36 +2,13 @@
 layout: layout.njk
 title: 金勾海賊王
 ---
-{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav %}
+{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav, banner, tip, partyDungeonHeader %}
 
-<div class="forum-banner">
-    <div class="forum-banner-content">
-        <h1>金勾海賊王</h1>
-    </div>
-</div>
+{{ banner('金勾海賊王') }}
 
 <div class="forum-main-card forum-main-card-warm">
     
-    {{ dungeonHeader('５５等 ↑', '３～６人', '３５０００', {
-        clear: [
-            { name: '金勾組隊硬幣', value: '1 個' },
-            { name: '洗血精華秘藥罐', value: '10 個' }
-        ],
-        chance: [
-            { name: '轉蛋券', value: '1 個' }
-        ],
-        exchange: [
-            { name: '經驗加倍券', cost: '5 硬幣', value: '四屬+1' },
-            { name: '金勾組隊騎寵', cost: '20 硬幣', value: '四屬+1' }
-        ],
-        run: [
-            { name: '金勾組隊稱號', value: '四屬+1' }
-        ],
-        requirement: [
-            { name: '金勾組隊硬幣', value: '1 個' },
-            { name: '一百萬楓幣袋', value: '10 個' }
-        ]
-    }, '金勾海賊王', '靈藥幻境:海盜船境地') }}
+    {{ partyDungeonHeader('５５等 ↑', '３～６人', '３５０００', '金勾組隊', '靈藥幻境:海盜船境地', '金勾海賊王') }}
 
     <ul class="dungeon-timeline-full">
         {% call() stageRow(1, '前往海盜船之路', '金勾海賊王') %}
@@ -43,7 +20,7 @@ title: 金勾海賊王
         {% call() stageRow(2, '突破船首!', '金勾海賊王') %}
         <ul class="rule-list">
             <li>地圖上所有怪物擊殺後皆會掉落海賊的象徵。</li>
-            <li>由隊長與 {{ npc('邱翁NPC', '金勾海賊王/邱翁NPC.webp', 2, '#ff9f43') }} 對話，提交三次指定的任務道具：</li>
+            <li>由隊長與 {{ npc('邱翁NPC', '金勾海賊王/邱翁NPC.webp', 2, '組隊副本', '#ff9f43') }} 對話，提交三次指定的任務道具：</li>
             <li>第一次 → {{ item('新手海賊的象徵') }} 20 個</li>
             <li>第二次 → {{ item('中級海賊的象徵') }} 20 個</li>
             <li>第三次 → {{ item('老手海賊的象徵') }} 20 個</li>
@@ -73,7 +50,7 @@ title: 金勾海賊王
 
         {% call() stageRow(6, '海賊王的最後', '金勾海賊王') %}
         <ul class="rule-list">
-            <li>擊敗最終 BOSS 後，與 {{ npc('邱翁NPC', '金勾海賊王/邱翁NPC.webp', 6, '#ff9f43') }} 對話即可通關。</li>
+            <li>擊敗最終 BOSS 後，與 {{ npc('邱翁NPC', '金勾海賊王/邱翁NPC.webp', 6, '組隊副本', '#ff9f43') }} 對話即可通關。</li>
         </ul>
         {% endcall %}
     </ul>

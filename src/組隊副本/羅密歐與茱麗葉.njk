@@ -2,43 +2,20 @@
 layout: layout.njk
 title: 羅密歐與茱麗葉
 ---
-{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav %}
+{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav, banner, tip, partyDungeonHeader %}
 
-<div class="forum-banner">
-    <div class="forum-banner-content">
-        <h1>羅密歐與茱麗葉</h1>
-    </div>
-</div>
+{{ banner('羅密歐與茱麗葉') }}
 
 <div class="forum-main-card forum-main-card-warm">
     
-    {{ dungeonHeader('７０等 ↑', '４～６人', '１８００００', {
-        clear: [
-            { name: '羅密組隊硬幣', value: '1 個' },
-            { name: '洗血精華秘藥罐', value: '10 個' }
-        ],
-        chance: [
-            { name: '轉蛋券', value: '1 個' }
-        ],
-        exchange: [
-            { name: '經驗加倍券', cost: '5 硬幣', value: '四屬+1' },
-            { name: '羅密組隊騎寵', cost: '20 硬幣', value: '四屬+1' }
-        ],
-        run: [
-            { name: '羅密組隊稱號', value: '四屬+1' }
-        ],
-        requirement: [
-            { name: '羅密組隊硬幣', value: '1 個' },
-            { name: '一百萬楓幣袋', value: '10 個' }
-        ]
-    }, '羅密歐與茱麗葉', '瑪迦提亞城:蒙特鳩祕密之室') }}
+    {{ partyDungeonHeader('７０等 ↑', '４～６人', '１８００００', '羅密組隊', '瑪迦提亞城:蒙特鳩祕密之室', '羅密歐與茱麗葉') }}
 
     <ul class="dungeon-timeline-full">
         {% call() stageRow(1, '可疑的研究室', '羅密歐與茱麗葉') %}
         <ul class="rule-list">
             <li>地圖上藏有很多堆疊的書本，當滑鼠指標滑過可點選的地方時，指標會浮出滑鼠圖形。</li>
             <li>點擊到藏有開關的書本，即可開啟通往下一階段的傳送門。</li>
-            <li><span class="tip-text">💡 完美結局條件：書本中可能找到 {{ item('羅密歐的信件') }}，請在特殊實驗室轉交給 {{ npc('羅密歐NPC', '羅密歐與茱麗葉/羅密歐NPC.webp', 1, '#3498db') }}。</span></li>
+            <li><span class="tip-text">💡 完美結局條件：書本中可能找到 {{ item('羅密歐的信件') }}，請在特殊實驗室轉交給 {{ npc('羅密歐NPC', '羅密歐與茱麗葉/羅密歐NPC.webp', 1, '組隊副本', '#3498db') }}。</span></li>
         </ul>
         {% endcall %}
 
@@ -60,13 +37,13 @@ title: 羅密歐與茱麗葉
 
         {% call() stageRow(4, '特殊實驗室', '羅密歐與茱麗葉') %}
         <ul class="rule-list">
-            <li><span class="tip-text">💡 完美結局條件：將 {{ item('羅密歐的信件') }} 轉交給 {{ npc('羅密歐NPC', '羅密歐與茱麗葉/羅密歐NPC.webp', 4, '#3498db') }}。</span></li>
+            <li><span class="tip-text">💡 完美結局條件：將 {{ item('羅密歐的信件') }} 轉交給 {{ npc('羅密歐NPC', '羅密歐與茱麗葉/羅密歐NPC.webp', 4, '組隊副本', '#3498db') }}。</span></li>
             <li>地圖上左右兩側各有一扇上鎖的門，需透過 {{ item('門禁卡') }} 才能開啟。</li>
             <li>所有怪物皆會掉落 {{ item('門禁卡') }}，撿取後丟在門前等待數秒後即可進入漆黑的研究室。</li>
             <li>兩個研究室內的地圖 <span style="color: #c0392b;"><strong>最左上方箱子</strong></span> 皆藏有研究資料，使用普攻擊破箱子即可獲得。</li>
             <li>左邊研究室 <strong>需要跳躍力 120%</strong> 才可穿越滾輪，擊破箱子可獲得 {{ item('卡帕萊特的實驗資料') }}。</li>
             <li>右邊研究室 <strong>需要技能：瞬間移動</strong> 才可穿越牆壁，擊破箱子可獲得 {{ item('蒙特鳩的實驗資料') }}。</li>
-            <li>回到特殊實驗室之後，請將兩種實驗資料轉交給隊長，提交給 {{ npc('羅密歐NPC', '羅密歐與茱麗葉/羅密歐NPC.webp', 4, '#3498db') }} 後即可通關。</li>
+            <li>回到特殊實驗室之後，請將兩種實驗資料轉交給隊長，提交給 {{ npc('羅密歐NPC', '羅密歐與茱麗葉/羅密歐NPC.webp', 4, '組隊副本', '#3498db') }} 後即可通關。</li>
             <li>請從 {{ mob('中間的門', '羅密歐與茱麗葉/中間的門.webp', 4) }} 進入前往下一關。</li>
         </ul>
         {% endcall %}
@@ -98,6 +75,6 @@ title: 羅密歐與茱麗葉
         {% endcall %}
     </ul>
     
-    {{ dungeonNav('組隊', '金勾海賊王', '主題副本/菇菇王國') }}
+    {{ dungeonNav('組隊', '金勾海賊王', '') }}
 
 </div>

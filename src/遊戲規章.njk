@@ -2,11 +2,8 @@
 layout: layout.njk
 title: 遊戲規章
 ---
-<div class="forum-banner">
-    <div class="forum-banner-content" style="text-align: center;">
-        <h1>{{ site.name }}遊戲規章</h1>
-    </div>
-</div>
+{% from "dungeon-macros.njk" import banner %}
+{{ banner(site.name + '遊戲規章', true) }}
 
 <div class="forum-main-card" style="background-color: #fff4e6;">
 <div class="rules-grid-container">

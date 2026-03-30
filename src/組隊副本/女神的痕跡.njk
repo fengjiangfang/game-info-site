@@ -2,36 +2,13 @@
 layout: layout.njk
 title: 女神的痕跡
 ---
-{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav %}
+{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav, banner, tip, partyDungeonHeader %}
 
-<div class="forum-banner">
-    <div class="forum-banner-content">
-        <h1>女神的痕跡</h1>
-    </div>
-</div>
+{{ banner('女神的痕跡') }}
 
 <div class="forum-main-card forum-main-card-warm">
     
-    {{ dungeonHeader('５１等 ↑', '５～６人', '１４２０００', {
-        clear: [
-            { name: '女神組隊硬幣', value: '1 個' },
-            { name: '洗血精華秘藥罐', value: '10 個' }
-        ],
-        chance: [
-            { name: '轉蛋券', value: '1 個' }
-        ],
-        exchange: [
-            { name: '經驗加倍券', cost: '5 硬幣', value: '四屬+1' },
-            { name: '女神組隊騎寵', cost: '20 硬幣', value: '四屬+1' }
-        ],
-        run: [
-            { name: '女神組隊稱號', value: '四屬+1' }
-        ],
-        requirement: [
-            { name: '女神組隊硬幣', value: '1 個' },
-            { name: '一百萬楓幣袋', value: '10 個' }
-        ]
-    }, '女神的痕跡', '天空之城:疑問之塔') }}
+    {{ partyDungeonHeader('５１等 ↑', '５～６人', '１４２０００', '女神組隊', '天空之城:疑問之塔', '女神的痕跡') }}
 
     <ul class="dungeon-timeline-full">
         {% call() stageRow(1, '雅典娜禁地<岔路>', '女神的痕跡') %}
@@ -74,22 +51,6 @@ title: 女神的痕跡
             <li>隊長將會獲得兩種提示，分別為 <strong>一個平台是正確的</strong> 及 <strong>所有平台都是錯的</strong>。</li>
             <li>請依照下方樹狀圖進行指揮：
                 <br/>
-                <style>
-                .pq-tree { display: inline-flex; flex-direction: column; font-family: 'Inter', 'Segoe UI', sans-serif; background: #fff; padding: 10px 20px; border-radius: 12px; border: 2px solid #f1f2f6; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin: 5px 0; line-height: 1; min-width: 400px; }
-                .pq-tree ul { position: relative; display: flex; flex-direction: column; padding-left: 32px !important; margin: 0 !important; list-style: none !important; gap: 0 !important; }
-                .pq-tree > ul { padding-left: 0 !important; }
-                .pq-tree > ul > li::before, .pq-tree > ul > li::after { display: none; }
-                .pq-tree li { position: relative; display: flex; align-items: center; padding: 0 !important; margin: 0 !important; }
-                .pq-tree li::before { content: ''; position: absolute; left: -16px; top: 50%; width: 16px; border-top: 2px solid #2d3436; z-index: 1; }
-                .pq-tree li::after { content: ''; position: absolute; left: -16px; top: 0; bottom: 0; border-left: 2px solid #2d3436; z-index: 1; }
-                .pq-tree li:first-child::after { top: 50%; bottom: 0; }
-                .pq-tree li:last-child::after { top: 0; bottom: 50%; }
-                .pq-tree li:only-child::after { display: none; }
-                .pq-tree .node-label { display: flex; align-items: center; position: relative; z-index: 2; font-size: 14px; font-weight: 800; color: #2d3436; letter-spacing: 0.5px; padding: 3px 0; line-height: 1; }
-                .pq-tree .has-children > .node-label::after { content: ''; position: absolute; right: -16px; top: 50%; width: 16px; border-top: 2px solid #2d3436; z-index: 1; }
-                .blue-ring { display: flex; align-items: center; justify-content: center; width: 14px; height: 14px; border: 3px solid #0984e3; border-radius: 50%; margin-right: 5px; margin-left: 5px; box-sizing: border-box; }
-                .red-cross { color: #e74c3c; font-size: 18px; margin-right: 5px; margin-left: 5px; display: inline-flex; align-items: center; justify-content: center; line-height: 0; padding-bottom: 2px; }
-                </style>
                 <div class="pq-tree">
                     <ul>
                         <li class="has-children">
@@ -130,9 +91,9 @@ title: 女神的痕跡
                             </ul>
                         </li>
                     </ul>
-                    <div style="display: flex; gap: 25px; align-items: center; justify-content: center; margin-top: 25px; font-weight: bold; color: #7f8c8d; font-size: 15px; border-top: 1px dashed #dfe6e9; padding-top: 15px;">
-                        <div style="display: flex; align-items: center;"><span class="blue-ring" style="margin-right: 8px;"></span> 表示一個平台是正確的</div>
-                        <div style="display: flex; align-items: center;"><i class="fa-solid fa-xmark red-cross" style="margin-right: 8px;"></i> 表示所有平台都是錯的</div>
+                    <div class="pq-tree-legend">
+                        <div class="pq-tree-legend-item"><span class="blue-ring"></span> 表示一個平台是正確的</div>
+                        <div class="pq-tree-legend-item"><i class="fa-solid fa-xmark red-cross"></i> 表示所有平台都是錯的</div>
                     </div>
                 </div>
             </li>
@@ -149,14 +110,8 @@ title: 女神的痕跡
                     1 → 10 → 9 → 13 → 11 → 6 → 12 → 2 → 5 → 15 → 8 → 4 → 7 → 3 → 14
                 </div>
                 <br/>
-                <style>
-                .warehouse-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 220px; background: #f8f9fa; padding: 15px; border-radius: 12px; border: 2px solid #e9ecef; margin: 10px 0; }
-                .platform-node { background: white; border: 2px solid #dfe6e9; border-radius: 6px; padding: 4px; text-align: center; font-weight: 900; color: #2d3436; font-size: 13px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-                .platform-node.odd { border-left: 4px solid #ff9f43; }
-                .platform-node.even { border-right: 4px solid #0984e3; }
-                </style>
-                <div class="warehouse-grid" style="display: flex; justify-content: center; gap: 0; background: #fffbf0; padding: 15px 0; border-radius: 12px; border: 2px dashed #feca57; margin: 10px 0; position: relative; box-sizing: border-box; width: 100%; max-width: 525px;">
-                    <div style="display: flex; flex-direction: column-reverse; gap: 8px; width: 150px; align-items: flex-start; padding-right: 20px; border-right: 1px dashed rgba(254, 202, 87, 0.4);">
+                <div class="warehouse-layout">
+                    <div class="warehouse-col-left">
                         <div class="platform-node odd">1</div>
                         <div class="platform-node odd">3</div>
                         <div class="platform-node odd">5</div>
@@ -166,7 +121,7 @@ title: 女神的痕跡
                         <div class="platform-node odd short">13</div>
                         <div class="platform-node odd">15</div>
                     </div>
-                    <div style="display: flex; flex-direction: column-reverse; gap: 8px; width: 150px; align-items: flex-end; padding-left: 20px; transform: translateY(-13px);">
+                    <div class="warehouse-col-right">
                         <div class="platform-node even">2</div>
                         <div class="platform-node even short">4</div>
                         <div class="platform-node even">6</div>
@@ -176,18 +131,6 @@ title: 女神的痕跡
                         <div class="platform-node even">14</div>
                         <div style="height: 22px; width: 80px; visibility: hidden;"></div>
                     </div>
-                    
-                    <style>
-                    .warehouse-grid .platform-node { 
-                        width: 80px; height: 22px; display: flex; align-items: center; 
-                        background: white; border: 1px solid #dfe6e9; border-radius: 4px; 
-                        font-weight: 900; color: #2d3436; font-size: 13px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); 
-                        padding: 0 8px; box-sizing: border-box;
-                    }
-                    .warehouse-grid .platform-node.odd { justify-content: flex-start; border-left: 3px solid #ff9f43; }
-                    .warehouse-grid .platform-node.even { justify-content: flex-end; border-right: 3px solid #0984e3; }
-                    .warehouse-grid .platform-node.short { width: 40px; }
-                    </style>
                 </div>
             </li>
             <li>隊友可掛在梯子上之後，再將碎片丟出來，方便隊長在最下方進行撿取。</li>
@@ -224,22 +167,6 @@ title: 女神的痕跡
             <li>{{ mob('最上方', '女神的痕跡/最上方.webp', 7) }} 將有 5 個槓桿，先將左邊 2 個槓桿使用普攻打成朝下，隊長需回到原點與 {{ npc('幫傭易克NPC', '女神的痕跡/幫傭易克NPC.webp', 7) }} 對話。</li>
             <li>請依照下方樹狀圖進行指揮：
                 <br/>
-                <style>
-                .pq-tree { display: inline-flex; flex-direction: column; align-items: center; font-family: 'Inter', 'Segoe UI', sans-serif; background: #fff; padding: 20px 40px; border-radius: 12px; border: 2px solid #f1f2f6; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin: 15px 0; line-height: 1; min-width: 500px; }
-                .pq-tree ul { position: relative; display: flex; flex-direction: column; padding-left: 45px !important; margin: 0 !important; list-style: none !important; gap: 0 !important; }
-                .pq-tree > ul { padding-left: 0 !important; }
-                .pq-tree > ul > li::before, .pq-tree > ul > li::after { display: none; }
-                .pq-tree li { position: relative; display: flex; align-items: center; padding: 0 !important; margin: 0 !important; }
-                .pq-tree li::before { content: ''; position: absolute; left: -22px; top: 50%; width: 22px; border-top: 2px solid #2d3436; z-index: 1; }
-                .pq-tree li::after { content: ''; position: absolute; left: -22px; top: 0; bottom: 0; border-left: 2px solid #2d3436; z-index: 1; }
-                .pq-tree li:first-child::after { top: 50%; bottom: 0; }
-                .pq-tree li:last-child::after { top: 0; bottom: 50%; }
-                .pq-tree li:only-child::after { display: none; }
-                .pq-tree .node-label { display: flex; align-items: center; position: relative; z-index: 2; font-size: 14px; font-weight: 800; color: #2d3436; letter-spacing: 0.5px; padding: 6px 0; line-height: 1; }
-                .pq-tree .has-children > .node-label::after { content: ''; position: absolute; right: -22px; top: 50%; width: 22px; border-top: 2px solid #2d3436; z-index: 1; }
-                .blue-ring { display: flex; align-items: center; justify-content: center; width: 14px; height: 14px; border: 3px solid #0984e3; border-radius: 50%; margin-right: 5px; margin-left: 5px; box-sizing: border-box; }
-                .red-cross { color: #e74c3c; font-size: 18px; margin-right: 5px; margin-left: 5px; display: inline-flex; align-items: center; justify-content: center; line-height: 0; padding-bottom: 2px; }
-                </style>
                 <div class="pq-tree">
                     <ul>
                         <li class="has-children">
@@ -262,9 +189,9 @@ title: 女神的痕跡
                             </ul>
                         </li>
                     </ul>
-                    <div style="display: flex; gap: 25px; align-items: center; justify-content: center; margin-top: 25px; font-weight: bold; color: #7f8c8d; font-size: 15px; border-top: 1px dashed #dfe6e9; padding-top: 15px;">
-                        <div style="display: flex; align-items: center;"><span class="blue-ring" style="margin-right: 8px;"></span> 表示一個槓桿是正確的</div>
-                        <div style="display: flex; align-items: center;"><i class="fa-solid fa-xmark red-cross" style="margin-right: 8px;"></i> 表示所有槓桿都是錯的</div>
+                    <div class="pq-tree-legend">
+                        <div class="pq-tree-legend-item"><span class="blue-ring"></span> 表示一個槓桿是正確的</div>
+                        <div class="pq-tree-legend-item"><i class="fa-solid fa-xmark red-cross"></i> 表示所有槓桿都是錯的</div>
                     </div>
                 </div>
             </li>
@@ -288,7 +215,7 @@ title: 女神的痕跡
         {% call() stageRow(9, '雅典娜禁地<庭園>', '女神的痕跡') %}
         <ul class="rule-list">
             <li>地圖上的怪物擊殺後，將會掉落 {{ item('奇怪的種子') }}，丟在任意花盆上，將會隨種植出食人花。</li>
-            <li>若種植出 {{ mob('黑色食人花', '女神 the 痕跡/黑色食人花.webp', 9) }}，打掉後最終 BOSS 就會出現，擊殺後將會掉落 {{ item('更奇怪的種子') }}。</li>
+            <li>若種植出 {{ mob('黑色食人花', '女神的痕跡/黑色食人花.webp', 9) }}，打掉後最終 BOSS 就會出現，擊殺後將會掉落 {{ item('更奇怪的種子') }}。</li>
             <li>將 {{ item('更奇怪的種子') }} 丟至 <strong>左下方的花盆</strong> 可 {{ mob('種植出生命草', '女神的痕跡/種植出生命草.webp', 9) }}，普攻破壞以後可獲得 {{ item('生命草') }}。</li>
         </ul>
         {% endcall %}
@@ -297,14 +224,11 @@ title: 女神的痕跡
         <ul class="rule-list">
             <li>將 {{ item('生命草') }} 丟至 {{ mob('女神雕像面前', '女神的痕跡/女神雕像面前.webp', 10) }} 即可召喚出 <strong class="npc-hover" onmouseover="setHoverImg('{{ '/images/組隊副本/女神的痕跡/雅典娜女神NPC.webp' | url }}', 'stage-10-img', '雅典娜女神NPC', '#27ae60')" onmouseout="resetHoverImg('stage-10-img')">雅典娜女神NPC</strong>。</li>
             <li>隊長與 {{ npc('雅典娜女神NPC', '女神的痕跡/雅典娜女神NPC.webp', 10) }} 對話後即可通關。</li>
-            <li><span class="tip-text">💡 通關後將會傳送至獎勵地圖，地圖內有大量寶箱，可先與隊友溝通好要打哪個區塊。</span></li>
+            {{ tip('通關後將會傳送至獎勵地圖，地圖內有大量寶箱，可先與隊友溝通好要打哪個區塊。') }}
         </ul>
         {% endcall %}
     </ul>
     
     {{ dungeonNav('組隊', '毒霧森林', '金勾海賊王') }}
-
-</div>
-
 
 </div>

@@ -2,36 +2,13 @@
 layout: layout.njk
 title: 毒霧森林
 ---
-{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav %}
+{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav, banner, tip, partyDungeonHeader %}
 
-<div class="forum-banner">
-    <div class="forum-banner-content">
-        <h1>毒霧森林</h1>
-    </div>
-</div>
+{{ banner('毒霧森林') }}
 
 <div class="forum-main-card forum-main-card-warm">
     
-    {{ dungeonHeader('４５等 ↑', '４～６人', '１０４０００', {
-        clear: [
-            { name: '毒霧組隊硬幣', value: '1 個' },
-            { name: '洗血精華秘藥罐', value: '10 個' }
-        ],
-        chance: [
-            { name: '轉蛋券', value: '1 個' }
-        ],
-        exchange: [
-            { name: '經驗加倍券', cost: '5 硬幣', value: '四屬+1' },
-            { name: '毒霧組隊騎寵', cost: '20 硬幣', value: '四屬+1' }
-        ],
-        run: [
-            { name: '毒霧組隊稱號', value: '四屬+1' }
-        ],
-        requirement: [
-            { name: '毒霧組隊硬幣', value: '1 個' },
-            { name: '一百萬楓幣袋', value: '10 個' }
-        ]
-    }, '毒霧森林', '艾靈森林:深沉精靈之林') }}
+    {{ partyDungeonHeader('４５等 ↑', '４～６人', '１０４０００', '毒霧組隊', '艾靈森林:深沉精靈之林', '毒霧森林') }}
 
     <ul class="dungeon-timeline-full">
         {% call() stageRow(1, '初入森林', '毒霧森林') %}

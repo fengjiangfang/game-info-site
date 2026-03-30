@@ -1,7 +1,7 @@
 .forum-banner {
   background: linear-gradient(90deg, #ff9f43 0%, #feca57 50%, #ff9f43 100%);
   border-radius: 20px;
-  padding: 30px 40px;
+  padding: clamp(15px, 3vw, 30px) clamp(20px, 4vw, 40px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,20 +21,6 @@
   border-color: rgba(255, 255, 255, 1);
 }
 
-.forum-banner-icon {
-  font-size: 55px;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
-}
-
-.forum-banner-icon img {
-  width: 70px;
-  height: auto;
-}
-
 .forum-banner-content {
   position: relative;
   z-index: 2;
@@ -43,7 +29,7 @@
 
 .forum-banner h1 {
   color: #ffffff;
-  font-size: 42px;
+  font-size: clamp(24px, 5vw, 42px);
   font-weight: 900;
   letter-spacing: 4px;
   margin-bottom: 5px;
@@ -178,6 +164,25 @@
   color: white;
 }
 
+/* 統一滾動條樣式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-lg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
 .rules-grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -240,8 +245,6 @@
 .rule-header-orange i { color: #e67e22; }
 .rule-header-gray i { color: #7f8c8d; }
 .rule-header-gold i { color: #f1c40f; }
-.rule-header-silver i { color: #bdc3c7; }
-.rule-header-bronze i { color: #d35400; }
 
 .rule-desc {
   font-size: 14px;
@@ -324,18 +327,7 @@
 .setting-row-left {
   display: flex;
   align-items: center;
-  width: 200px;
-}
-
-.setting-row-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  margin-right: 16px;
+  min-width: 140px;
   flex-shrink: 0;
 }
 
@@ -360,7 +352,7 @@
     border: 2px solid #ffb142;
     align-items: center;
     justify-content: center;
-    grid-column: span 3;
+    grid-column: 1 / -1;
     box-shadow: 0 6px 20px rgba(255, 159, 67, 0.4);
 }
 
@@ -372,6 +364,15 @@
     text-shadow: 0 0 15px rgba(255, 200, 100, 0.8);
     margin-bottom: 0;
     text-align: center;
+}
+
+.rule-card-notice {
+    padding: 16px;
+    background-color: #faf9e9;
+    border: 2px solid #ffeaa7;
+    align-items: center;
+    justify-content: center;
+    grid-column: 1 / -1;
 }
 
 .rule-card-bordered {
@@ -433,4 +434,42 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ── 響應式：元件 ────────────────────────────────── */
+
+@media (max-width: 1024px) {
+    .rules-grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .forum-banner {
+        border-radius: 12px;
+    }
+
+    .forum-main-card {
+        border-radius: 12px;
+        padding: 20px;
+    }
+
+    .setting-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 12px 16px;
+    }
+
+    .setting-row-left {
+        min-width: auto;
+    }
+
+    .setting-row-value {
+        text-align: left;
+    }
+
+    .rules-grid-container {
+        grid-template-columns: 1fr;
+    }
 }

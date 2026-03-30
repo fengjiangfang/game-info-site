@@ -2,13 +2,9 @@
 layout: layout.njk
 title: 菇菇王國
 ---
-{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav %}
+{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav, banner %}
 
-<div class="forum-banner">
-    <div class="forum-banner-content">
-        <h1>菇菇王國</h1>
-    </div>
-</div>
+{{ banner('菇菇王國') }}
 
 <div class="forum-main-card forum-main-card-warm">
     
@@ -20,10 +16,10 @@ title: 菇菇王國
         exchange: [],
         run: [],
         requirement: []
-    }, '菇菇王國', '菇菇王國:菇菇森林口') }}
+    }, '菇菇王國', '菇菇王國:菇菇森林口', '主題副本') }}
 
     <ul class="dungeon-timeline-full">
-        {% call() stageRow(1, '「菇菇王國的危機」', '菇菇王國') %}
+        {% call() stageRow(1, '「菇菇王國的危機」', '菇菇王國', 'webp', '主題副本') %}
         <ul class="rule-list">
             <li>(內容準備中...)</li>
         </ul>

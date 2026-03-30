@@ -2,13 +2,9 @@
 layout: layout.njk
 title: 埃羅汀
 ---
-{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav %}
+{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav, banner %}
 
-<div class="forum-banner">
-    <div class="forum-banner-content">
-        <h1>埃羅汀</h1>
-    </div>
-</div>
+{{ banner('埃羅汀') }}
 
 <div class="forum-main-card forum-main-card-warm">
     
@@ -20,10 +16,10 @@ title: 埃羅汀
         exchange: [],
         run: [],
         requirement: []
-    }, '埃羅汀', '妖精之林:大樹埃羅汀') }}
+    }, '埃羅汀', '妖精之林:大樹埃羅汀', '主題副本') }}
 
     <ul class="dungeon-timeline-full">
-        {% call() stageRow(1, '「大樹的呼喚」', '埃羅汀') %}
+        {% call() stageRow(1, '「大樹的呼喚」', '埃羅汀', 'webp', '主題副本') %}
         <ul class="rule-list">
             <li>(內容準備中...)</li>
         </ul>
