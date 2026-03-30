@@ -43,8 +43,14 @@ function setActiveDungeon(wrapper, containerId, imgSrc, newIndex) {
         }
         newImg.style.transform = 'translateY(0%)';
 
-        document.querySelectorAll('.timeline-item').forEach(el => el.classList.remove('active'));
-        wrapper.closest('.timeline-item').classList.add('active');
+        // 修正：同時處理舊版的 .timeline-item 與新版的 .dungeon-card-item
+        document.querySelectorAll('.timeline-item, .dungeon-card-item').forEach(el => el.classList.remove('active'));
+        
+        // 優先找 card-item，若無則找 timeline-item
+        const targetItem = wrapper.closest('.dungeon-card-item') || wrapper.closest('.timeline-item');
+        if (targetItem) {
+            targetItem.classList.add('active');
+        }
     }, 40);
 }
 

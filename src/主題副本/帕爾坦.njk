@@ -2,30 +2,13 @@
 layout: layout.njk
 title: 帕爾坦
 ---
-{% from "dungeon-macros.njk" import dungeonHeader, stageRow, npc, mob, item, itemBold, dungeonNav, banner %}
+{% from "dungeon-macros.njk" import banner %}
 
 {{ banner('帕爾坦') }}
 
-<div class="forum-main-card forum-main-card-warm">
-    
-    {{ dungeonHeader('６０等 ↑', '１人', '無', {
-        clear: [
-            { name: '帕爾坦勳章', value: '1 個' }
-        ],
-        chance: [],
-        exchange: [],
-        run: [],
-        requirement: []
-    }, '帕爾坦', '帕爾坦:暗影峽谷口', '主題副本') }}
-
-    <ul class="dungeon-timeline-full">
-        {% call() stageRow(1, '「遠古的遺跡」', '帕爾坦', 'webp', '主題副本') %}
-        <ul class="rule-list">
-            <li>(內容準備中...)</li>
-        </ul>
-        {% endcall %}
-    </ul>
-    
-    {{ dungeonNav('主題', '主題副本/埃羅汀', '主題副本/克里提亞斯') }}
-
+<div class="forum-main-card">
+    <div style="text-align: center; padding: 100px 20px; color: #95a5a6; font-size: 18px; font-weight: 800;">
+        <i class="fa-solid fa-screwdriver-wrench" style="font-size: 40px; color: #ff9f43; margin-bottom: 20px; display: block;"></i>
+        內容建置中，敬請期待...
+    </div>
 </div>
