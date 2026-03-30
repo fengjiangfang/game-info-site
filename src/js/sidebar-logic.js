@@ -227,3 +227,23 @@ setInterval(() => {
         refreshStageImage(img);
     });
 }, 300);
+
+/* ── 行動版側邊欄開關邏輯 ──────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileToggle = document.getElementById('mobile-sidebar-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    
+    if (mobileToggle && sidebar) {
+        mobileToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('mobile-open');
+        });
+        
+        // 點擊外部自動關閉
+        document.addEventListener('click', (e) => {
+            if (sidebar.classList.contains('mobile-open') && !sidebar.contains(e.target) && e.target !== mobileToggle) {
+                sidebar.classList.remove('mobile-open');
+            }
+        });
+    }
+});

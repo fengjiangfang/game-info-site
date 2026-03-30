@@ -45,6 +45,17 @@
     {% endmacro %}
 
     <div class="app-container">
+        <!-- 行動版頂部導航列 -->
+        <header class="mobile-top-nav">
+            <div class="mobile-nav-logo">
+                <i class="fa-solid fa-server"></i>
+                <span>【 {{ site.name }}資訊 】</span>
+            </div>
+            <button class="mobile-nav-toggle" id="mobile-sidebar-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </header>
+
         <nav class="sidebar">
             <div class="server-header">
                 <span>【 {{ site.name }}資訊 】</span>

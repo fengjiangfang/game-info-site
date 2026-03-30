@@ -145,3 +145,60 @@ details.channel-group > summary::-webkit-details-marker {
     grid-template-columns: 1fr;
   }
 }
+
+/* ── 行動版頂部導覽列 (加高版) ────────────────────────── */
+.mobile-top-nav {
+    display: none;
+    height: 112px;
+    background: var(--sidebar-bg);
+    color: white;
+    padding: 0 25px;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    border-bottom: 2px solid var(--sidebar-bg-dark);
+}
+
+.mobile-nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 900;
+    font-size: 20px;
+    color: var(--color-primary-light);
+}
+
+.mobile-nav-toggle {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.mobile-nav-toggle:hover {
+    color: var(--color-accent);
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .mobile-top-nav {
+        display: flex;
+    }
+    
+    .app-container {
+        flex-direction: column;
+    }
+    
+    .main-content {
+        padding-top: 25px;
+    }
+}
