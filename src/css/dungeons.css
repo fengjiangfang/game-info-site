@@ -1586,3 +1586,31 @@
 .platform-node.odd { justify-content: flex-start; border-left: 4px solid #ff9f43; }
 .platform-node.even { justify-content: flex-end; border-right: 4px solid #0984e3; }
 .platform-node.short { width: 50px; }
+
+/* 修正底部導航在手機版維持左右排列 */
+@media (max-width: 768px) {
+    .dungeon-nav-inner {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px !important;
+        width: 100%;
+    }
+    .dungeon-nav-prev, .dungeon-nav-next {
+        position: static !important;
+        transform: none !important;
+        flex: 1;
+        min-width: 120px;
+        text-align: center;
+    }
+    .nav-side-btn {
+        width: 100%;
+        padding: 8px 10px !important;
+        font-size: 12px !important;
+    }
+    .nav-center-btn {
+        order: 3;
+        width: 100%;
+        margin-top: 5px;
+    }
+}
